@@ -176,7 +176,7 @@ Legg til et steg som kjører SonarQube-skanning med `SonarSource/sonarqube-scan-
 
 Denne actionen trenger to miljøvariabler:
 - `SONAR_TOKEN` — autentiseringstoken (lagret som GitHub Secret)
-- `SONAR_HOST_URL` — URL til SonarQube-serveren (lagret som GitHub Secret)
+- `SONAR_HOST_URL` — URL til SonarQube-serveren (lagret som GitHub Variable)
 
 ```yaml
 - name: SonarQube Scan
@@ -185,14 +185,24 @@ Denne actionen trenger to miljøvariabler:
     projectBaseDir: 1-DevOps/idempotweet
   env:
     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
 ```
 
-> **OBS:** Du må legge inn to **Secrets** i GitHub-repoet ditt under **Settings → Secrets and variables → Actions**:
-> - `SONAR_HOST_URL` — URL til SonarQube-serveren (får du av kursleder)
-> - `SONAR_TOKEN` — autentiseringstoken (får du av kursleder)
+> **OBS:** Før du kjører workflowen, må du sette opp SonarQube-tilgang:
+>
+> **1. Logg inn på SonarQube:**
+> Gå til **https://sonarqube.thawi.io** og logg inn med e-postadressen din. Passord får du av kursleder.
+>
+> **2. Opprett en token:**
+> Klikk på profilbildet ditt øverst til høyre → **My Account** → **Security** → **Generate Tokens**.
+> Gi tokenet et navn (f.eks. `github-actions`), velg type **Project Analysis Token**, og klikk **Generate**. Kopier tokenet — du får bare se det én gang.
+>
+> **3. Legg til i GitHub:**
+> Gå til GitHub-repoet ditt → **Settings** → **Secrets and variables** → **Actions**:
+> - Under **Secrets**: Opprett `SONAR_TOKEN` med tokenet du kopierte
+> - Under **Variables**: Opprett `SONAR_HOST_URL` med verdien `https://sonarqube.thawi.io`
 
-Etter at workflowen har kjørt, kan du logge inn på SonarQube-serveren (brukernavn og passord får du av kursleder) og finne prosjektet ditt der. SonarQube viser:
+Etter at workflowen har kjørt, kan du logge inn på SonarQube og finne prosjektet ditt der. SonarQube viser:
 - Bugs og sårbarheter i koden
 - Code smells (vedlikeholdsproblemer)
 - Testdekningsgrad (coverage)
