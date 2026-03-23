@@ -1,0 +1,5 @@
+no/soprasteria/Subscriber1.class
+no/soprasteria/MainFanout.class
+no/soprasteria/RabbitMQConnectionHelper.class
+no/soprasteria/RabbitMQConfiguration.class
+no/soprasteria/domain/ChatMessageDTO.class
