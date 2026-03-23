@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.OffsetDateTime;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 import static no.soprasteria.RabbitMQConfiguration.EXCHANGE_NAME_FANOUT;
@@ -40,10 +41,9 @@ public class MainFanout {
         Channel channel = rabbitMQConfiguration.ensureQueuesAndExchanges(rabbitMQConnectionHelper.getConnection().createChannel());
         try {
             while (true) {
-                ChatMessageDTO msgToSend = new ChatMessageDTO("Leeroy", "Jeeeenkiiiins", OffsetDateTime.now().toString());
+                ChatMessageDTO msgToSend = new ChatMessageDTO(UUID.randomUUID().toString(),"Leeroy", "Jeeeenkiiiins", OffsetDateTime.now().toString());
                 publishMessage(channel, mapper.writeValueAsString(msgToSend), EXCHANGE_NAME_FANOUT, "");
                 Thread.sleep(5000);
-
             }
         } catch (Exception e) {
             System.out.println("Failed to publish message: " + e.getMessage());
