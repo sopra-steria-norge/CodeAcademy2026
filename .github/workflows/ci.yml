@@ -7,18 +7,17 @@ on:
 
 jobs:
   ci:
-    runs-on: ${{ vars.RUNNER || 'self-hosted' }}
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: 1-DevOps/idempotweet
     steps:
       - name: Checkout code
-        uses: actions/checkout
+        uses: actions/checkout@v6.0.2
 
       - name: Set up Node.js
-        uses: actions/setup-node
+        uses: actions/setup-node@v6.3.0
         with:
-          node-version: 20
           cache: yarn
 
       - name: Activate coreback
