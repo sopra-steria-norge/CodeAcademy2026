@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Get yarn cache dir
+        id: yarn-cache
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
       - name: Cache yarn dependencies
         uses: actions/cache@v4
         with:
