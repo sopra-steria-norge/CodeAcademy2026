@@ -2,7 +2,9 @@ name: idempotweet-actions
 
 on:
   pull_request:
-    paths: 1-DevOps/idempotweet/**
+    paths:
+      - "1-DevOps/idempotweet/**"
+      - ".github/workflows/**"
   workflow_call:
 
 jobs:
