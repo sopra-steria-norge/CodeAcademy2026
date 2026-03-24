@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Corepack
+        working-directory: .
+        run: corepack enable
+
       - name: Get yarn cache dir
         id: yarn-cache
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
@@ -35,10 +39,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('1-DevOps/idempotweet/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
-      - name: Corepack
-        working-directory: .
-        run: corepack enable
 
       - name: Install dependancies
         run: yarn install --immutable
