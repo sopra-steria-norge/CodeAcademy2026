@@ -11,6 +11,7 @@ import java.util.concurrent.TimeoutException;
 public record RabbitMQConnectionHelper(Properties properties) {
 
     public Connection getConnection() throws IOException, TimeoutException {
+        System.setProperty("java.net.preferIPv4Stack", "true");
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername(properties.getProperty("rabbitmq.userName"));
         factory.setPassword(properties.getProperty("rabbitmq.password"));
