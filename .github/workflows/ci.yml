@@ -1,4 +1,5 @@
 name: CI
+
 on:
   pull_request:
     paths:
@@ -8,9 +9,11 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: 1-DevOps/idempotweet
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6.0.2
@@ -18,12 +21,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v6.3.0
         with:
+          node-version: 20
           cache: yarn
           cache-dependency-path: 1-DevOps/idempotweet/yarn.lock
 
-      - name: Activate coreback
-        run: corepack enable
-        working-directory: .
+      - name: Enable Corepack (Yarn 4)
+        run: |
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
 
       - name: Install dependencies
         run: yarn install --immutable
