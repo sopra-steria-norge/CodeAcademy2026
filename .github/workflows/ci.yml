@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v6.3.0
         with:
           cache: yarn
+          cache-dependency-path: 1-DevOps/idempotweet/yarn.lock
 
       - name: Activate coreback
         run: corepack enable
