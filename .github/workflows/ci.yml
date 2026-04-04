@@ -7,8 +7,8 @@ on:
   workflow_call:
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ vars.RUNNER || 'self-hosted' }}
 
     defaults:
       run:
