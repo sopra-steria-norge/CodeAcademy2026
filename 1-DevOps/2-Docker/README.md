@@ -139,7 +139,7 @@ Gjenbruk CI-workflowen fra Workshop 1 med `uses`:
 
 ```yaml
 ci:
-  uses: ./.github/workflows/ci.yml
+  uses: ./.github/workflows/ci-solution.yml
 ```
 
 #### Jobb 2: Docker Build & Push

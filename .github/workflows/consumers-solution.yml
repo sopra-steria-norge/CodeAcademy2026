@@ -7,7 +7,7 @@ name: Consumers
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - '2-EventDriven/java-consumer/**'
       - '2-EventDriven/dotnet-consumer/**'

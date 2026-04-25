@@ -212,7 +212,7 @@ Etter at workflowen har kjørt, kan du logge inn på SonarQube og finne prosjekt
 
 ```bash
 git checkout -b ci-workshop
-git add .github/workflows/ci.yml
+git add .github/workflows/ci-solution.yml
 git commit -m "Legg til CI-workflow"
 git push -u origin ci-workshop
 ```
