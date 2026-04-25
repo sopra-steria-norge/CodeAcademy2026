@@ -29,10 +29,6 @@ jobs:
           cache: yarn
           cache-dependency-path: 1-DevOps/idempotweet/yarn.lock
 
-      - name: Activate coreback
-        run: corepack enable
-        working-directory: .
-
       - name: Install dependencies
         run: yarn install --immutable
 
