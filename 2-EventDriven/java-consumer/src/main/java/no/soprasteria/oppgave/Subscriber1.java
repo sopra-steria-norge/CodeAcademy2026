@@ -7,7 +7,6 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import no.soprasteria.Application;
 import no.soprasteria.JacksonConfig;
-import no.soprasteria.db.MessageData;
 import no.soprasteria.domain.IdemDataDTO;
 import no.soprasteria.rabbit.RabbitMQConfiguration;
 import no.soprasteria.rabbit.RabbitMQConnectionHelper;
@@ -34,7 +33,7 @@ public class Subscriber1 {
             InputStream applicationPropertiesStream = classLoader.getResourceAsStream("application.properties");
             properties.load(applicationPropertiesStream);
         } catch (Exception e) {
-            // process the exception
+            log.error("Failed to load properties", e);
         }
     }
 
@@ -50,6 +49,32 @@ public class Subscriber1 {
         RabbitMQConnectionHelper connectionHelper = new RabbitMQConnectionHelper(rabbitConfig);
         Channel channel = config.ensureQueuesAndExchanges(connectionHelper.getConnection().createChannel());
 
-        // TODO: Implement me please
+        channel.basicConsume(
+            FANOUT_QUEUE_NAME,
+            false,
+            new DefaultConsumer(channel) {
+                @Override
+                public void handleDelivery(
+                        String consumerTag,
+                        Envelope envelope,
+                        AMQP.BasicProperties properties,
+                        byte[] body
+                ) throws IOException {
+                    String message = new String(body);
+
+                    IdemDataDTO dto = mapper.readValue(message, IdemDataDTO.class);
+                    log.info(
+                            "Received message from {}: {}",
+                            dto.author(),
+                            dto.message()
+                    );
+
+                    channel.basicAck(
+                            envelope.getDeliveryTag(),
+                            false
+                    );
+                }
+            }
+        );
     }
 }
