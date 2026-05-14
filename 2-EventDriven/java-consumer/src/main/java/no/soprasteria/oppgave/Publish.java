@@ -17,8 +17,7 @@ import java.util.UUID;
 
 public class Publish {
     private static final Logger log = LoggerFactory.getLogger(Publish.class);
-    private static final String EXCHANGE_NAME = "chat";
-    private static final String QUEUE_NAME = "chat_all";
+    static final String EXCHANGE_NAME = "chat";
     private static final Properties properties;
 
     static {
@@ -57,7 +56,6 @@ public class Publish {
                 fanOutMessageService.publishMessageToQueue(
                         idemDataDTO,
                         EXCHANGE_NAME,
-                        QUEUE_NAME,
                         ""
                 );
                 

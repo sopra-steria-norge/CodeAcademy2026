@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
 @Service
 public class FanOutMessageService {
 
@@ -18,32 +16,30 @@ public class FanOutMessageService {
     private final ObjectMapper mapper;
 
     @Autowired
-    public FanOutMessageService(RabbitMQConnectionHelper connectionHelper, ObjectMapper mapper) {
+    public FanOutMessageService(
+            RabbitMQConnectionHelper connectionHelper,
+            ObjectMapper mapper
+    ) {
         this.connectionHelper = connectionHelper;
         this.mapper = mapper;
     }
 
-    private static void publishMessageToQueue(Channel channel, String message, String exchange, String routingKey) throws IOException {
-        channel.basicPublish(
-                exchange,
-                routingKey,
-                null,
-                message.getBytes());
-        log.info("[key={}] Sent '{}'", routingKey, message);
-    }
+    public void publishMessageToQueue(IdemDataDTO msgToSend, String exchange, String routingKey) {
+        try (Channel channel = connectionHelper.getConnection().createChannel()) {
+            channel.exchangeDeclare(exchange, "fanout", false);
+            channel.basicPublish(exchange, routingKey, null, mapper.writeValueAsBytes(msgToSend));
 
-    public void publishMessageToQueue(IdemDataDTO msgToSend, String exchange, String que, String routingKey) {
-        RabbitMQConfiguration rabbitMQConfiguration = new RabbitMQConfiguration();
-        try {
-            Channel channel = rabbitMQConfiguration.ensureQueuesAndExchanges(
-                    connectionHelper.getConnection().createChannel(),
-                    exchange,
-                    que,
-                    true
+            log.info(
+                    "[key={}] Sent message to exchange '{}'",
+                    routingKey,
+                    exchange
             );
-            publishMessageToQueue(channel, mapper.writeValueAsString(msgToSend), exchange, routingKey);
         } catch (Exception e) {
-            log.error("Failed to publish message: {}", e.getMessage(), e);
+            log.error(
+                    "Failed to publish message: {}",
+                    e.getMessage(),
+                    e
+            );
         }
     }
 }

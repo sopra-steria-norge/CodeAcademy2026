@@ -18,9 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static no.soprasteria.oppgave.Publish.EXCHANGE_NAME;
+
 public class Subscriber2 {
     private static final Logger log = LoggerFactory.getLogger(Subscriber2.class);
-    private static final String EXCHANGE_NAME = "chat";
     private static final String QUEUE_NAME = "chat_all_2";
     private static final Properties properties;
 

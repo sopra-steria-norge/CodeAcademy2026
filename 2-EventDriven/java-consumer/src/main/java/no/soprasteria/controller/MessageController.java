@@ -37,9 +37,8 @@ public class MessageController {
                 UUID.randomUUID().toString(),
                 message.author(), message.message(),
                 LocalDateTime.now()),
-        "chat",
-            "que",
-            ""
+                "chat",
+                ""
         );
         return ResponseEntity.accepted().build();
     }
