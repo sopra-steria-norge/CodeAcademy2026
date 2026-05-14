@@ -10,7 +10,6 @@ import no.soprasteria.rabbit.RabbitMQConnectionHelper;
 import no.soprasteria.rabbit.helper.RabbitConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.StandardEnvironment;
 
 import java.io.InputStream;
 import java.time.OffsetDateTime;
@@ -29,7 +28,7 @@ public class Publish {
             InputStream applicationPropertiesStream = classLoader.getResourceAsStream("application.properties");
             properties.load(applicationPropertiesStream);
         } catch (Exception e) {
-            // process the exception
+            log.error("Failed to load application.properties", e);
         }
     }
 
@@ -42,9 +41,26 @@ public class Publish {
     private void run() {
         try {
             RabbitConfig rabbitConfig = RabbitConfig.mapFromProperties(properties);
-            FanOutMessageService fanOutMessageService = new FanOutMessageService(new RabbitMQConnectionHelper(rabbitConfig), mapper, new StandardEnvironment());
-            IdemDataDTO idemDataDTO = new IdemDataDTO(UUID.randomUUID().toString(), "Magnus", "Heelllooo", OffsetDateTime.now().toLocalDateTime());
-            fanOutMessageService.publishMessageToQueue(idemDataDTO, RabbitMQConfiguration.EXCHANGE_NAME_FANOUT, "");
+            FanOutMessageService fanOutMessageService = new FanOutMessageService(
+                    new RabbitMQConnectionHelper(rabbitConfig),
+                    mapper
+            );
+
+            while (true) {
+                IdemDataDTO idemDataDTO = new IdemDataDTO(
+                        UUID.randomUUID().toString(),
+                        "Magnus", "Heelllooo", 
+                        OffsetDateTime.now().toLocalDateTime()
+                );
+
+                fanOutMessageService.publishMessageToQueue(
+                        idemDataDTO,
+                        RabbitMQConfiguration.EXCHANGE_NAME_FANOUT,
+                        ""
+                );
+                
+                Thread.sleep(5000);
+           }
         } catch (Exception e) {
             log.error("Failed {}", e.getMessage());
         }

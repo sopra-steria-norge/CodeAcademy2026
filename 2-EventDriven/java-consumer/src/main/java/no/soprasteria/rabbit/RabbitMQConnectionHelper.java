@@ -15,11 +15,17 @@ public class RabbitMQConnectionHelper {
 
     private final RabbitConfig config;
 
+    private Connection connection;
+
     public RabbitMQConnectionHelper(RabbitConfig config) {
         this.config = config;
     }
 
     public Connection getConnection() throws Exception {
+        if (connection != null && connection.isOpen()) {
+            return connection;
+        }
+
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername(config.getUserName());
         factory.setPassword(config.getPassword());
@@ -37,6 +43,8 @@ public class RabbitMQConnectionHelper {
             factory.useSslProtocol(sslContext);
         }
 
-        return factory.newConnection();
+        connection = factory.newConnection();
+
+        return connection;
     }
 }
