@@ -5,7 +5,6 @@ import no.soprasteria.Application;
 import no.soprasteria.JacksonConfig;
 import no.soprasteria.domain.IdemDataDTO;
 import no.soprasteria.rabbit.FanOutMessageService;
-import no.soprasteria.rabbit.RabbitMQConfiguration;
 import no.soprasteria.rabbit.RabbitMQConnectionHelper;
 import no.soprasteria.rabbit.helper.RabbitConfig;
 import org.slf4j.Logger;
@@ -18,6 +17,8 @@ import java.util.UUID;
 
 public class Publish {
     private static final Logger log = LoggerFactory.getLogger(Publish.class);
+    private static final String EXCHANGE_NAME = "chat";
+    private static final String QUEUE_NAME = "chat_all";
     private static final Properties properties;
 
     static {
@@ -55,7 +56,8 @@ public class Publish {
 
                 fanOutMessageService.publishMessageToQueue(
                         idemDataDTO,
-                        RabbitMQConfiguration.EXCHANGE_NAME_FANOUT,
+                        EXCHANGE_NAME,
+                        QUEUE_NAME,
                         ""
                 );
                 

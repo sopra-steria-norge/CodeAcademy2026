@@ -32,10 +32,15 @@ public class FanOutMessageService {
         log.info("[key={}] Sent '{}'", routingKey, message);
     }
 
-    public void publishMessageToQueue(IdemDataDTO msgToSend, String exchange, String routingKey) {
+    public void publishMessageToQueue(IdemDataDTO msgToSend, String exchange, String que, String routingKey) {
         RabbitMQConfiguration rabbitMQConfiguration = new RabbitMQConfiguration();
         try {
-            Channel channel = rabbitMQConfiguration.ensureQueuesAndExchanges(connectionHelper.getConnection().createChannel());
+            Channel channel = rabbitMQConfiguration.ensureQueuesAndExchanges(
+                    connectionHelper.getConnection().createChannel(),
+                    exchange,
+                    que,
+                    true
+            );
             publishMessageToQueue(channel, mapper.writeValueAsString(msgToSend), exchange, routingKey);
         } catch (Exception e) {
             log.error("Failed to publish message: {}", e.getMessage(), e);

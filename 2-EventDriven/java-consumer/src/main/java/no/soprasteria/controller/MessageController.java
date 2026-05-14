@@ -3,7 +3,6 @@ package no.soprasteria.controller;
 import no.soprasteria.db.DataRepository;
 import no.soprasteria.domain.IdemDataDTO;
 import no.soprasteria.rabbit.FanOutMessageService;
-import no.soprasteria.rabbit.RabbitMQConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,15 @@ public class MessageController {
 
     @PutMapping("post-new-message")
     public ResponseEntity<?> postMessage(@RequestBody Message message) {
-        fanOutMessageService.publishMessageToQueue(new IdemDataDTO(UUID.randomUUID().toString(), message.author(), message.message(), LocalDateTime.now()), RabbitMQConfiguration.EXCHANGE_NAME_FANOUT, "");
+        fanOutMessageService.publishMessageToQueue(
+            new IdemDataDTO(
+                UUID.randomUUID().toString(),
+                message.author(), message.message(),
+                LocalDateTime.now()),
+        "chat",
+            "que",
+            ""
+        );
         return ResponseEntity.accepted().build();
     }
 }

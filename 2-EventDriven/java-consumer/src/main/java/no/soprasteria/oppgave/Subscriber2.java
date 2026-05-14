@@ -18,10 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Subscriber1 {
-    private static final Logger log = LoggerFactory.getLogger(Subscriber1.class);
+public class Subscriber2 {
+    private static final Logger log = LoggerFactory.getLogger(Subscriber2.class);
     private static final String EXCHANGE_NAME = "chat";
-    private static final String QUEUE_NAME = "chat_all";
+    private static final String QUEUE_NAME = "chat_all_2";
     private static final Properties properties;
 
     static {
@@ -39,7 +39,7 @@ public class Subscriber1 {
     private final ObjectMapper mapper = new JacksonConfig().objectMapper();
 
     public static void main(String[] args) throws Exception {
-        new Subscriber1().run();
+        new Subscriber2().run();
     }
 
     private void run() throws Exception {
@@ -66,8 +66,9 @@ public class Subscriber1 {
                 ) throws IOException {
                     String message = new String(body);
                     IdemDataDTO dto = mapper.readValue(message, IdemDataDTO.class);
+
                     log.info(
-                            "Received message from {}: {}",
+                            "Subscriber2 received from {}: {}",
                             dto.author(),
                             dto.message()
                     );
