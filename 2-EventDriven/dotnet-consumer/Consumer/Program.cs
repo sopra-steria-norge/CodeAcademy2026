@@ -23,6 +23,16 @@ await channel.QueueDeclareAsync(queue: "codeacademy-fanout", durable: true, excl
 
 var consumer = new AsyncEventingBasicConsumer(channel);
 
+
+
+// Create a channel and declare the queue
+using var channel = await connection.CreateChannelAsync();
+await channel.QueueDeclareAsync(queue: "idem-events", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+// Set up a consumer to listen for messages
+var consumer = new AsyncEventingBasicConsumer(channel);
+
+// Handle received messages
 consumer.ReceivedAsync += async (sender, eventArgs) =>
 {
     var body = eventArgs.Body.ToArray();
@@ -37,3 +47,14 @@ consumer.ReceivedAsync += async (sender, eventArgs) =>
 
 await channel.BasicConsumeAsync(queue: "codeacademy-fanout", autoAck: false, consumerTag: "", noLocal: false, exclusive: false, arguments: null, consumer: consumer);
 Console.ReadLine();
+    Console.WriteLine($"Received message: {message}");
+
+    // Simulate processing time
+    await Task.Delay(1000);
+
+    // Acknowledge the message
+    await channel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false);   
+};
+// Start consuming messages
+await channel.BasicConsumeAsync(queue: "idem-events", autoAck: false, consumerTag: "", noLocal: false, exclusive: false, arguments: null, consumer: consumer);
+Console.ReadLine(); // Keep the application running to listen for messages
