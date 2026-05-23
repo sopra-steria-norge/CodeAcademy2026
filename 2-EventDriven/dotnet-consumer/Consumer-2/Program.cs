@@ -19,7 +19,7 @@ Console.WriteLine("Connected to RabbitMQ");
 // - Handle incoming messages by deserializing the JSON and printing the content to the console
 
 using var channel = await connection.CreateChannelAsync();
-await channel.QueueDeclareAsync(queue: "codeacademy-fanout", durable: true, exclusive: false, autoDelete: false, arguments: null);
+await channel.QueueDeclareAsync(queue: "codeacademy-fanout2", durable: true, exclusive: false, autoDelete: true, arguments: null);
 
 var consumer = new AsyncEventingBasicConsumer(channel);
 
@@ -35,5 +35,5 @@ consumer.ReceivedAsync += async (sender, eventArgs) =>
 
 };
 
-await channel.BasicConsumeAsync(queue: "codeacademy-fanout", autoAck: false, consumerTag: "", noLocal: false, exclusive: false, arguments: null, consumer: consumer);
+await channel.BasicConsumeAsync(queue: "codeacademy-fanout2", autoAck: false, consumerTag: "", noLocal: false, exclusive: false, arguments: null, consumer: consumer);
 Console.ReadLine();
