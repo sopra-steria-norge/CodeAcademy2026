@@ -1,2 +1,9 @@
-.kiro
-.env
+target/
+/target
+.idea/
+.idea
+*.iml
+out/
+bin/
+obj/
+.DS_Store
