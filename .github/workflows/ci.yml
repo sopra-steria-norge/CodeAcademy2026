@@ -43,6 +43,9 @@ jobs:
       - name: Install dependancies
         run: yarn install --immutable
 
+      - name: Test
+        run: yarn test
+
       - name: Test Coverage
         run: yarn test:coverage
 
