@@ -4,33 +4,34 @@ using System.Text;
 using System.Text.Json;
 
 Console.WriteLine("Producer starting...");
-// Establish connection to RabbitMQ
+
 using var connection = await ConnectionHelper.ConnectAsync();
 Console.WriteLine("Connected to RabbitMQ");
 
-// Implement a basic producer here.
-// Start with:
-// - Create a channel
-// - Declare a queue
-// - Publish a message to the queue (you can use a simple JSON string as the message body)
-
-
-// Create a channel and declare the queue
 using var channel = await connection.CreateChannelAsync();
-await channel.QueueDeclareAsync(queue: "idem-events", durable: true, exclusive: false, autoDelete: false, arguments: null);
 
-// Publish messages to the queue with for loop to simulate multiple events
-for (int i = 0; i < 10; i++)
+const string exchangeName = "idem-fanout";
+await channel.ExchangeDeclareAsync(exchange: exchangeName, type: ExchangeType.Fanout, durable: false, autoDelete: false);
+
+using var cts = new CancellationTokenSource();
+Console.CancelKeyPress += (_, e) =>
 {
-    var message = $"Idems Event {i + 1} at {DateTime.Now}";
+    e.Cancel = true;
+    cts.Cancel();
+};
 
-    var messageBody = JsonSerializer.Serialize(message);
-    var body = Encoding.UTF8.GetBytes(messageBody);
+Console.WriteLine("Publishing messages. Press Ctrl+C to stop.");
 
-    await channel.BasicPublishAsync(exchange: string.Empty, routingKey: "idem-events", mandatory: true, basicProperties: new BasicProperties { Persistent = true }, body: body);
-    Console.WriteLine($"Published event: {message}");
+var i = 0;
+while (!cts.Token.IsCancellationRequested)
+{
+    var message = new { Author = "producer", Message = $"Idem event {++i} at {DateTime.Now:O}" };
+    var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
 
-    await Task.Delay(2000);
+    await channel.BasicPublishAsync(exchange: exchangeName, routingKey: "", mandatory: false, basicProperties: new BasicProperties { Persistent = false }, body: body);
+    Console.WriteLine($"Published: {message.Message}");
+
+    await Task.Delay(2000, cts.Token).ContinueWith(_ => { });
 }
 
-Console.WriteLine("Producer finished.");
+Console.WriteLine("Producer stopped.");
