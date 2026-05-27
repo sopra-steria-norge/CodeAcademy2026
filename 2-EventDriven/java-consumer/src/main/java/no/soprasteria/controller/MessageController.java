@@ -2,12 +2,13 @@ package no.soprasteria.controller;
 
 import no.soprasteria.db.DataRepository;
 import no.soprasteria.domain.IdemDataDTO;
-import no.soprasteria.rabbit.FanOutMessageService;
+import no.soprasteria.rabbit.MessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -15,11 +16,11 @@ import java.util.UUID;
 public class MessageController {
 
     private final DataRepository dataRepository;
-    private final FanOutMessageService fanOutMessageService;
+    private final MessageService messageService;
 
-    public MessageController(DataRepository dataRepository, FanOutMessageService fanOutMessageService) {
+    public MessageController(DataRepository dataRepository, MessageService fanOutMessageService) {
         this.dataRepository = dataRepository;
-        this.fanOutMessageService = fanOutMessageService;
+        this.messageService = fanOutMessageService;
     }
 
     @GetMapping("latest")
@@ -32,13 +33,15 @@ public class MessageController {
 
     @PutMapping("post-new-message")
     public ResponseEntity<?> postMessage(@RequestBody Message message) {
-        fanOutMessageService.publishMessageToQueue(
+        messageService.publishMessageToQueue(
             new IdemDataDTO(
                 UUID.randomUUID().toString(),
                 message.author(), message.message(),
                 LocalDateTime.now()),
                 "chat",
-                ""
+                "",
+                "",
+                Map.of("type", "message")
         );
         return ResponseEntity.accepted().build();
     }

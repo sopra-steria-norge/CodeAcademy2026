@@ -33,7 +33,11 @@ public class Subscriber {
                     connectionHelper.getConnection().createChannel(),
                     "EXCHANGE_NAME",
                     "QUEUE_NAME",
+                    "direct",
+                    "routingKey",
+                    null,
                     true
+
             );
             // TODO: Consume messages og persister via DataRepository
 

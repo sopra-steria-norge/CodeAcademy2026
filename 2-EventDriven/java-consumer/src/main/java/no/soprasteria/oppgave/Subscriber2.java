@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import static no.soprasteria.oppgave.Publish.EXCHANGE_NAME;
@@ -47,10 +49,20 @@ public class Subscriber2 {
         RabbitMQConfiguration config = new RabbitMQConfiguration();
         RabbitConfig rabbitConfig = RabbitConfig.mapFromProperties(properties);
         RabbitMQConnectionHelper connectionHelper = new RabbitMQConnectionHelper(rabbitConfig);
+
+        Map<String, Object> bindingHeaders = new HashMap<>();
+
+        bindingHeaders.put("type", "vehicle");
+        bindingHeaders.put("color", "purple");
+        bindingHeaders.put("x-match", "any");
+
         Channel channel = config.ensureQueuesAndExchanges(
                 connectionHelper.getConnection().createChannel(),
-                EXCHANGE_NAME,
                 QUEUE_NAME,
+                EXCHANGE_NAME,
+                "headers",
+                "",
+                bindingHeaders,
                 true
         );
 
