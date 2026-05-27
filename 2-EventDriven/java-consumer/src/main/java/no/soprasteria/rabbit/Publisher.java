@@ -3,6 +3,7 @@ package no.soprasteria.rabbit;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import no.soprasteria.domain.IdemDataDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -22,6 +24,7 @@ public class Publisher {
     private final Logger log = LoggerFactory.getLogger(Publisher.class);
     private final RabbitMQConnectionHelper connectionHelper;
     private final ObjectMapper mapper;
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     public Publisher(RabbitMQConnectionHelper connectionHelper, ObjectMapper mapper) {
         this.connectionHelper = connectionHelper;
@@ -42,7 +45,7 @@ public class Publisher {
                     true
             );
 
-            Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+            scheduler.scheduleAtFixedRate(() -> {
                 try {
                     IdemDataDTO dto = new IdemDataDTO(
                             UUID.randomUUID().toString(),
@@ -64,5 +67,10 @@ public class Publisher {
     private void publish(Channel channel, String message) throws Exception {
         channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
         log.info("[PUBLISHER] Sendte: {}", message);
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        scheduler.shutdown();
     }
 }
