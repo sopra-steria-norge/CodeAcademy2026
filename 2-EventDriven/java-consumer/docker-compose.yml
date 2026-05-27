@@ -35,20 +35,27 @@ services:
     restart: unless-stopped
     networks:
       - code_academy_network
-  #java-consumer:
-  #  container_name: java-consumer
-  #  image: java-consumer:local
-  #  build: .
-  #  environment:
-  #    - SPRING_PROFILES_ACTIVE=production
-  #    - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/codeacademy
-  #  ports:
-  #    - "8080:8080"
-  #  depends_on:
-  #    postgres:
-  #      condition: service_healthy
-  #  networks:
-  #    - code_academy_network
+  java-consumer:
+    container_name: java-consumer
+    image: java-consumer:local
+    build: .
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/codeacademy
+      - RABBITMQ_HOST=rabbitmq
+      - REMOTE_RABBITMQ_HOST=rabbitmq
+      - REMOTE_RABBITMQ_USERNAME=guest
+      - REMOTE_RABBITMQ_PASSWORD=guest
+      - REMOTE_RABBITMQ_PORT=5672
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    networks:
+      - code_academy_network
 
 networks:
   code_academy_network:

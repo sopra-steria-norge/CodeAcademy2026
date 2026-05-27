@@ -9,7 +9,8 @@ public interface RabbitConfig {
         config.setUserName(properties.getProperty("rabbitmq.userName"));
         config.setPassword(properties.getProperty("rabbitmq.password"));
         config.setVhost(properties.getProperty("rabbitmq.vhost"));
-        config.setHost(properties.getProperty("rabbitmq.host"));
+        String host = System.getenv().getOrDefault("RABBITMQ_HOST", properties.getProperty("rabbitmq.host"));
+        config.setHost(host);
         config.setPort(properties.getProperty("rabbitmq.port", "5672"));
 
         return config;
