@@ -22,11 +22,16 @@ Når prosjektet kjører:
 
 | URL | Hva er det? |
 | --- | --- |
-| `http://localhost:5035/menu` | Hello Coffee – det eneste endepunktet som finnes i starteren. |
+| `http://localhost:5035/menu` | `GET` – hent kaffemenyen. |
+| `http://localhost:5035/orders` | `POST` – opprett en bestilling med `coffeeId` i JSON-body. |
 | `http://localhost:5035/openapi/v1.json` | Den **automatisk genererte** OpenAPI-spesifikasjonen (code-first). |
 | `http://localhost:5035/scalar/v1` | **Scalar** – interaktivt UI for å utforske og teste alle endepunkter. |
 
 Du kan også bruke [`Kaffebar/Kaffebar.http`](./Kaffebar/Kaffebar.http) til å sende requests direkte fra VS Code.
+
+`POST /orders` returnerer `201 Created`, en `Location`-header med
+`/orders/{orderId}` og et JSON-objekt med `orderId` og `coffeeId`.
+Ordren lagres foreløpig ikke, og henting av en ordre implementeres i en senere oppgave.
 
 ## Struktur
 

@@ -31,8 +31,26 @@ app.MapGet("/menu", () => new[]
 .WithSummary("Hent kaffemeny")
 .WithDescription("Returnerer en liste over alle tilgjengelige kaffedrikker i kaffebaren.");
 
+app.MapPost("/orders", (CreateOrderRequest request, CancellationToken cancellationToken) =>
+{
+    var order = new OrderResponse(Guid.NewGuid(), request.CoffeeId);
+    return TypedResults.Created($"/orders/{order.OrderId}", order);
+})
+.WithName("CreateOrder")
+.WithSummary("Opprett en bestilling")
+.WithDescription("Oppretter en bestilling for en kaffe og returnerer ordren med en autogenerert OrderId.");
+
 app.Run();
 
 // DTO-er kan ligge i Program.cs når prosjektet er lite.
 // Etter hvert er det ryddig å flytte dem til egne filer i en Models-mappe.
 public record Coffee(Guid Id, string Name, decimal Price);
+
+/// <summary>Inndata for å bestille en kaffe.</summary>
+public sealed record CreateOrderRequest
+{
+    public required Guid CoffeeId { get; init; }
+}
+
+/// <summary>En opprettet bestilling med en autogenerert ID.</summary>
+public sealed record OrderResponse(Guid OrderId, Guid CoffeeId);
