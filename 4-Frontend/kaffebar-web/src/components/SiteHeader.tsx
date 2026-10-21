@@ -14,18 +14,30 @@ export function SiteHeader() {
           <span className="text-lg font-semibold tracking-tight">Kaffebar</span>
         </Link>
 
-        <nav className="flex items-center gap-1 text-sm font-medium">
+        <nav className="flex items-center gap-0.5 text-xs font-medium sm:gap-1 sm:text-sm">
           <Link
             href="/"
-            className="rounded-lg px-3 py-1.5 text-secondary transition-colors hover:bg-accent-soft hover:text-foreground"
+            aria-label="Kundeskjerm"
+            className="rounded-lg px-1.5 py-1.5 text-secondary transition-colors hover:bg-accent-soft hover:text-foreground sm:px-3"
           >
-            Kundeskjerm
+            <span className="sm:hidden">Kunde</span>
+            <span className="hidden sm:inline">Kundeskjerm</span>
           </Link>
           <Link
             href="/barista"
-            className="rounded-lg px-3 py-1.5 text-secondary transition-colors hover:bg-accent-soft hover:text-foreground"
+            aria-label="Baristaskjerm"
+            className="rounded-lg px-1.5 py-1.5 text-secondary transition-colors hover:bg-accent-soft hover:text-foreground sm:px-3"
           >
-            Baristaskjerm
+            <span className="sm:hidden">Barista</span>
+            <span className="hidden sm:inline">Baristaskjerm</span>
+          </Link>
+          <Link
+            href="/kaffelab"
+            aria-label="Kaffelab"
+            className="rounded-lg px-1.5 py-1.5 text-secondary transition-colors hover:bg-accent-soft hover:text-foreground sm:px-3"
+          >
+            <span className="sm:hidden">Lab</span>
+            <span className="hidden sm:inline">Kaffelab</span>
           </Link>
         </nav>
       </div>

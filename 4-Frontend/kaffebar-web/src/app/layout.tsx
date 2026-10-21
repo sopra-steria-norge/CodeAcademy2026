@@ -9,7 +9,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   title: "Kaffebar",
-  description: "Kundeskjerm og baristaskjerm for Code Academy-kaffebaren",
+  description: "Kundeskjerm, baristaskjerm og kaffelab for Code Academy-kaffebaren",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

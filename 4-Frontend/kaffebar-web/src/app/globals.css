@@ -61,10 +61,43 @@ body {
   animation: pulse-soft 2s ease-in-out infinite;
 }
 
+.lab-hero {
+  background:
+    radial-gradient(ellipse at 78% 50%, rgb(183 123 66 / 25%), transparent 34%),
+    linear-gradient(115deg, #2d211a 0%, #493122 55%, #704a2d 100%);
+}
+
+.lab-bean {
+  animation: bean-float 5s ease-in-out infinite;
+}
+
+.lab-bean:nth-of-type(2) {
+  animation-delay: -1.8s;
+}
+
+.lab-bean:nth-of-type(3) {
+  animation-delay: -3.2s;
+}
+
+@keyframes bean-float {
+  0%, 100% { transform: translateY(0) rotate(-18deg); }
+  50% { transform: translateY(-10px) rotate(-8deg); }
+}
+
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

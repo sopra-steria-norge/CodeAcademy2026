@@ -18,6 +18,23 @@ Content-Type: application/json
 
 {}
 
+### Opprett en bruker (201 Created)
+POST {{host}}/users
+Content-Type: application/json
+
+{
+  "name": "Ada Lovelace"
+}
+
+### Ugyldig forespørsel: Navn mangler (400 Bad Request)
+POST {{host}}/users
+Content-Type: application/json
+
+{}
+
+### Slett demo-brukeren (204 første gang, 404 etter at brukeren er slettet)
+DELETE {{host}}/users/22222222-2222-2222-2222-222222222222
+
 ### Se den genererte OpenAPI-spesifikasjonen (åpne i browser)
 # {{host}}/openapi/v1.json
 
