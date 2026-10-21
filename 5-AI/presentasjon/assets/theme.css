@@ -170,10 +170,18 @@
 .file-label { font: 600 .45em var(--font-mono); color: var(--ss-warm-purple); margin-bottom: -.6em; }
 
 /* Tabeller */
-.reveal table { font-size: .6em; border-collapse: collapse; margin: .3em auto; width: 100%; }
-.reveal table th { background: var(--ss-purple); color: #fff; padding: .5em .8em; border: none; text-align: left; }
-.reveal table td { padding: .45em .8em; border: none; border-bottom: 1px solid #e3dceb; }
-.reveal table tr:nth-child(even) td { background: var(--ss-bg-purple); }
+.reveal section > table { font-size: .6em; border-collapse: collapse; margin: .3em auto; width: 100%; }
+.reveal section > table th { background: var(--ss-purple); color: #fff; padding: .5em .8em; border: none; text-align: left; }
+.reveal section > table td { padding: .45em .8em; border: none; border-bottom: 1px solid #e3dceb; }
+.reveal section > table tr:nth-child(even) td { background: var(--ss-bg-purple); }
+
+/* Kode med linjenummer: ingen tabellstriper, lesbare dimmede linjer */
+.reveal pre code table, .reveal pre code td, .reveal pre code tr { background: transparent !important; border: none !important; }
+.reveal pre code td { padding: 0 !important; }
+.reveal .hljs:not(:first-child).fragment { background: #272822; }
+.reveal .hljs[data-line-numbers]:not([data-line-numbers=""]) tr:not(.highlight-line) { opacity: .45; }
+.reveal .hljs.has-highlights tr.highlight-line { background: rgba(240, 125, 0, .12) !important; }
+.reveal .hljs-ln-numbers { color: #8c7fa3; padding-right: 14px !important; user-select: none; }
 
 /* Kontekstvindu-meter */
 .ctx { width: 100%; height: 64px; border-radius: 14px; background: var(--ss-light-grey); display: flex; overflow: hidden; position: relative; border: 3px solid var(--ss-purple); }
