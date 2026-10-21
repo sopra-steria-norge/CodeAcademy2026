@@ -84,9 +84,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - Kaffebar__Events__Enabled=true
       - Kaffebar__Events__Exchange=kaffebar
-      - Kaffebar__Events__RabbitMqHost=rabbitmq
+      # EventOptions binder "Uri", ikke "RabbitMqHost" — feil variabelnavn her betyr
+      # at API-et faller tilbake til localhost inni containeren og aldri når broker.
+      - Kaffebar__Events__Uri=amqp://guest:guest@rabbitmq:5672
       - Kaffebar__Barista__AutoEnabled=true
-      - Kaffebar__Barista__IntervalMs=8000
+      - Kaffebar__Barista__IntervalMs=200
     networks:
       default:
         aliases: [kaffebar-api]

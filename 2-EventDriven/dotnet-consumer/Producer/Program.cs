@@ -1,12 +1,9 @@
-using CodeAcademy.DotnetConsumer.Common.Config;
-using RabbitMQ.Client;
-using System.Text;
-using System.Text.Json;
+
+
+using Producer;
 
 Console.WriteLine("Producer starting...");
 // Establish connection to RabbitMQ
-using var connection = await ConnectionHelper.ConnectAsync();
-Console.WriteLine("Connected to RabbitMQ");
 
 // Implement a basic producer here.
 // Start with:
@@ -14,6 +11,9 @@ Console.WriteLine("Connected to RabbitMQ");
 // - Declare a queue
 // - Publish a message to the queue (you can use a simple JSON string as the message body)
 
+<<<<<<< HEAD
+await MessageSimulator.CreateSimulator(3);
+=======
 
 // Create a channel and declare the queue
 using var channel = await connection.CreateChannelAsync();
@@ -34,3 +34,4 @@ for (int i = 0; i < 10; i++)
 }
 
 Console.WriteLine("Producer finished.");
+>>>>>>> 331ffec73b954d6698a255a6a0a1f24184e6d75b

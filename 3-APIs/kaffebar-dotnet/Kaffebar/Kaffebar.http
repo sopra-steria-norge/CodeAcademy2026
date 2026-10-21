@@ -4,6 +4,10 @@
 GET {{host}}/menu
 Accept: application/json
 
+### Hent alle aktive brukere
+GET {{host}}/users/active
+Accept: application/json
+
 ### Se den genererte OpenAPI-spesifikasjonen (åpne i browser)
 # {{host}}/openapi/v1.json
 
