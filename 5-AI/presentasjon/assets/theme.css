@@ -325,3 +325,8 @@
 /* Progressbar i merkevarefarger */
 .reveal .progress { height: 6px; color: var(--ss-orange); }
 .reveal .controls { color: var(--ss-orange); }
+
+/* Hindre at lange kodelinjer presser nabokolonnen ut av sliden */
+.two-col > *, .pattern-grid > * { min-width: 0; }
+.two-col pre code, .two-col pre code td.hljs-ln-code { white-space: pre-wrap; word-break: break-word; }
+.wf-row .card { font-size: .58em; padding: 14px 14px; min-width: 0; }

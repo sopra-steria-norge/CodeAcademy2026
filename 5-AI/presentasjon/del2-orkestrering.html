@@ -450,8 +450,11 @@ $ Bruk reviewer-agenten til å se gjennom endringene.
       </code></pre>
       <p class="file-label fragment" data-fragment-index="2">guard.sh svarer på stdout:</p>
       <pre class="fragment" data-fragment-index="2"><code class="language-json" data-trim>
-{"permissionDecision": "deny",
- "permissionDecisionReason": "Force push er ikke tillatt"}
+{
+  "permissionDecision": "deny",
+  "permissionDecisionReason":
+    "Force push er ikke tillatt"
+}
       </code></pre>
     </div>
     <div class="terminal fragment" data-fragment-index="3" data-flash>
