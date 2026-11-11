@@ -93,7 +93,8 @@ Fullførte du ditt eget Kaffebar-API i mai, kan du bruke det i stedet for fasite
 ```bash
 KAFFEBAR_API_URL=http://localhost:5035 yarn dev          # .NET-sporet
 KAFFEBAR_API_URL=http://localhost:8080 yarn dev          # Java-sporet
-KAFFEBAR_API_URL=http://localhost:5035 yarn generate:types
+OPENAPI_URL=http://localhost:5035/openapi/v1.json yarn generate:types # .NET-kontrakten
+KAFFEBAR_API_URL=http://localhost:8080 yarn generate:types           # Java-kontrakten
 ```
 
 Det er ekstraoppgave 8, og den beste testen på om kontrakten din faktisk holder.
@@ -111,6 +112,18 @@ fungerer i sin helhet uten en eneste container; runde 2 trenger en broker.
 Koden ligger i `src/mocks/`. `src/lib/api.ts` går rett dit i mock-modus, og
 `instrumentation.ts` starter auto-baristaen. Det er ingen nettverkskall involvert, og
 derfor heller ingenting som kan feile halvveis.
+
+Når en bestilling er klar, kan kunden velge «Vurder kaffen» og se ukas
+kaffehumør på kundeskjermen. I mock-modus ligger vurderinger og bestillinger i
+minnet og nullstilles når Next.js starter på nytt. Uten innlogging bruker
+workshopen én felles demo-bruker.
+
+Kundeskjermen foreslår også en kaffe ut fra ønsket styrke, smak og melk. Den
+forklarbare poengsummen bruker håndlagde profiler for menykaffene; ukjente
+kaffenavn får en nøytral plassering. Når en bestilling er klar, kan kunden gi
+kaffen 👍 eller 👎. Preferanser og tilbakemeldinger lagres lokalt i
+nettleseren og påvirker senere anbefalinger på samme nettleser. Dette er
+separat fra den vanlige trevalgs vurderingen av kaffen.
 
 ## Godt å vite i utviklingsmodus
 

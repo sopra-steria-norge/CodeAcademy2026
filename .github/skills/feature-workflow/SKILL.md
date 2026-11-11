@@ -1,6 +1,6 @@
 ---
 name: feature-workflow
-description: "Følg teamets arbeidsflyt for kodeendringer: avklar krav, legg fram plan for godkjenning, implementer, test og oppsummer. Bruk ved nye features og bugfikser."
+description: 'Følg teamets arbeidsflyt for kodeendringer: avklar krav, legg fram plan for godkjenning, implementer, test og oppsummer. Bruk ved nye features og bugfikser.'
 ---
 
 # Arbeidsflyt for kodeendringer
@@ -13,3 +13,5 @@ description: "Følg teamets arbeidsflyt for kodeendringer: avklar krav, legg fra
 6. **Oppsummer:** Beskriv endringen, verifiseringen og eventuelle avvik eller oppfølgingspunkter.
 
 Bruk [sikkerhetssjekklisten](./sjekkliste.md) når endringen berører tillitsgrenser, tilgang, sensitive data, nettverk, logging eller feilbehandling. Vurder bare punktene som gjelder for den aktuelle koden.
+
+Bruk agentene planner og reviewer for å sikre at planen er godkjent og at endringene blir korrekt vurdert.

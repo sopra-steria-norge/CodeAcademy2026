@@ -1,4 +1,10 @@
-import type { Coffee, CreateOrderRequest, Order, OrderStatus } from "@/types/domain";
+import type {
+  Coffee,
+  CreateOrderRequest,
+  Order,
+  OrderRating,
+  OrderStatus,
+} from "@/types/domain";
 
 /**
  * Mock-modus: en miniversjon av kaffebar-api som kjører inne i Next-prosessen.
@@ -26,9 +32,11 @@ const minutesAgo = (minutes: number) => new Date(Date.now() - minutes * 60_000).
 // handlere hver for seg, så lageret må ligge på globalThis for å være ett lager.
 const globalForStore = globalThis as typeof globalThis & {
   __kaffebarMockOrders?: Map<string, Order>;
+  __kaffebarMockRatings?: Map<string, OrderRating>;
 };
 
 const orders = (globalForStore.__kaffebarMockOrders ??= new Map<string, Order>());
+const ratings = (globalForStore.__kaffebarMockRatings ??= new Map<string, OrderRating>());
 
 const SEED = [
   {
@@ -87,6 +95,19 @@ export function listMockOrders(params: { status?: OrderStatus; limit?: number } 
 
 export function findMockOrder(orderId: string): Order | undefined {
   return orders.get(orderId);
+}
+
+export function findMockRating(orderId: string): OrderRating | undefined {
+  return ratings.get(orderId);
+}
+
+export function listMockRatings(): OrderRating[] {
+  return [...ratings.values()];
+}
+
+export function setMockRating(rating: OrderRating): OrderRating {
+  ratings.set(rating.orderId, rating);
+  return rating;
 }
 
 export function createMockOrder(request: CreateOrderRequest): Order {

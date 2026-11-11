@@ -27,16 +27,23 @@ const MILKS: MilkType[] = ["WHOLE", "SKIMMED", "OAT", "SOY"];
  */
 export function OrderForm({
   menu,
+  preferredMilk,
+  onPreferredMilkChange,
+  selectedCoffeeId,
+  onSelectedCoffeeChange,
   onOrdered,
 }: {
   menu: Coffee[];
+  preferredMilk: MilkType | "NONE";
+  onPreferredMilkChange: (milkType: MilkType | "NONE") => void;
+  selectedCoffeeId: string | null;
+  onSelectedCoffeeChange: (coffeeId: string) => void;
   onOrdered?: (order: Order) => void;
 }) {
   const queryClient = useQueryClient();
-  const [selected, setSelected] = useState<Coffee | null>(menu[0] ?? null);
+  const selected = menu.find((coffee) => coffee.id === selectedCoffeeId) ?? menu[0] ?? null;
   const [customerName, setCustomerName] = useState("");
   const [size, setSize] = useState<CoffeeSize>("MEDIUM");
-  const [milkType, setMilkType] = useState<MilkType | "">("");
   const [extraShot, setExtraShot] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -77,7 +84,7 @@ export function OrderForm({
       coffeeId: selected.id,
       customerName: customerName.trim(),
       size,
-      ...(milkType ? { milkType } : {}),
+      ...(preferredMilk !== "NONE" ? { milkType: preferredMilk } : {}),
       ...(extraShot ? { extraShot } : {}),
       // `quantity` har default i kontrakten, men openapi-typescript gjør felt
       // med default-verdi påkrevde i TypeScript. Vi sender den alltid.
@@ -95,7 +102,7 @@ export function OrderForm({
               key={coffee.id}
               coffee={coffee}
               selected={selected?.id === coffee.id}
-              onSelect={setSelected}
+              onSelect={(selectedCoffee) => onSelectedCoffeeChange(selectedCoffee.id)}
             />
           ))}
         </div>
@@ -133,8 +140,10 @@ export function OrderForm({
         <label className="flex flex-col gap-1.5">
           <span className="text-sm font-semibold">Melk</span>
           <select
-            value={milkType}
-            onChange={(event) => setMilkType(event.target.value as MilkType | "")}
+            value={preferredMilk === "NONE" ? "" : preferredMilk}
+            onChange={(event) =>
+              onPreferredMilkChange((event.target.value || "NONE") as MilkType | "NONE")
+            }
             className="rounded-lg border border-line bg-card px-3 py-2"
           >
             <option value="">Ingen</option>

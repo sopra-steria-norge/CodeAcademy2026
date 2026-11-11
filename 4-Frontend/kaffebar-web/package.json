@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "generate:types": "openapi-typescript ${KAFFEBAR_API_URL:-http://localhost:8080}/openapi.json -o src/types/kaffebar.ts"
+    "generate:types": "openapi-typescript ${OPENAPI_URL:-${KAFFEBAR_API_URL:-http://localhost:8080}/openapi.json} -o src/types/kaffebar.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.94.5",

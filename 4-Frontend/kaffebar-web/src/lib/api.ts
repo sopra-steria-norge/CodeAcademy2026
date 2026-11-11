@@ -1,5 +1,21 @@
 import { KAFFEBAR_API_URL, USE_MOCK_API } from "./config";
-import type { Coffee, CreateOrderRequest, Order, OrderStatus, Problem } from "@/types/domain";
+import type {
+  Coffee,
+  CreateOrderRequest,
+  CreateRatingRequest,
+  Order,
+  OrderRating,
+  OrderStatus,
+  Problem,
+  WeeklySummary,
+} from "@/types/domain";
+
+export class ApiError extends Error {
+  constructor(message: string, readonly status: number) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
 
 /**
  * HTTP-laget mot Kaffebar-API-et. UTLEVERT — du skal ikke skrive dette i dag.
@@ -37,13 +53,21 @@ async function handle<T>(response: Response): Promise<T> {
   }
 
   let detail = `${response.status} ${response.statusText}`;
-  if (response.headers.get("content-type")?.includes("problem+json")) {
+  const contentType = response.headers.get("content-type") ?? "";
+  if (contentType.includes("problem+json")) {
     const problem = (await response.json()) as Problem;
     // `errors` finnes bare på valideringsfeil, og er det mest nyttige å vise.
-    const fields = problem.errors?.map((e) => `${e.field}: ${e.message}`).join(", ");
-    detail = fields ? `${problem.title} — ${fields}` : (problem.detail ?? problem.title);
+    const fields = Object.entries(problem.errors ?? {})
+      .flatMap(([field, messages]) => messages.map((message) => `${field}: ${message}`))
+      .join(", ");
+    detail = fields
+      ? `${problem.title ?? "Ugyldig forespørsel"} — ${fields}`
+      : (problem.detail ?? problem.title ?? detail);
+  } else if (contentType.includes("application/json")) {
+    const body = (await response.json()) as { message?: unknown };
+    if (typeof body.message === "string") detail = body.message;
   }
-  throw new Error(detail);
+  throw new ApiError(detail, response.status);
 }
 
 /** GET /menu */
@@ -103,4 +127,40 @@ export async function updateOrderStatus(orderId: string, status: OrderStatus): P
     cache: "no-store",
   });
   return handle<Order>(response);
+}
+
+/** POST /orders/{orderId}/rating */
+export async function createOrderRating(
+  orderId: string,
+  request: CreateRatingRequest,
+): Promise<OrderRating> {
+  if (USE_MOCK_API) return (await import("@/mocks/api")).mockCreateOrderRating(orderId, request);
+
+  const response = await fetch(`${KAFFEBAR_API_URL}/orders/${orderId}/rating`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(request),
+    cache: "no-store",
+  });
+  return handle<OrderRating>(response);
+}
+
+/** GET /orders/{orderId}/rating */
+export async function fetchOrderRating(orderId: string): Promise<OrderRating> {
+  if (USE_MOCK_API) return (await import("@/mocks/api")).mockFetchOrderRating(orderId);
+
+  const response = await fetch(`${KAFFEBAR_API_URL}/orders/${orderId}/rating`, {
+    cache: "no-store",
+  });
+  return handle<OrderRating>(response);
+}
+
+/** GET /users/{userId}/weekly-summary */
+export async function fetchWeeklySummary(userId: string): Promise<WeeklySummary> {
+  if (USE_MOCK_API) return (await import("@/mocks/api")).mockFetchWeeklySummary(userId);
+
+  const response = await fetch(`${KAFFEBAR_API_URL}/users/${userId}/weekly-summary`, {
+    cache: "no-store",
+  });
+  return handle<WeeklySummary>(response);
 }

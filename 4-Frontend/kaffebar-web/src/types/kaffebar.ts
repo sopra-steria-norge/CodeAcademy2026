@@ -15,7 +15,7 @@ export interface paths {
          * Hent kaffemeny
          * @description Returnerer en liste over alle tilgjengelige kaffedrikker i kaffebaren.
          */
-        get: operations["getMenu"];
+        get: operations["GetMenu"];
         put?: never;
         post?: never;
         delete?: never;
@@ -33,17 +33,15 @@ export interface paths {
         };
         /**
          * Hent bestillinger
-         * @description Returnerer bestillinger, nyeste først. Kan filtreres på status og pagineres
-         *     med `limit` og `offset`.
+         * @description Returnerer bestillinger, nyeste først. Kan filtreres på status og pagineres med limit og offset.
          */
-        get: operations["listOrders"];
+        get: operations["ListOrders"];
         put?: never;
         /**
-         * Opprett bestilling
-         * @description Oppretter en ny bestilling med status `PENDING` og publiserer hendelsen
-         *     `order.created` til RabbitMQ.
+         * Opprett en bestilling
+         * @description Oppretter en bestilling med status PENDING.
          */
-        post: operations["createOrder"];
+        post: operations["CreateOrder"];
         delete?: never;
         options?: never;
         head?: never;
@@ -54,14 +52,11 @@ export interface paths {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                /** @description Id-en til bestillingen. */
-                orderId: components["parameters"]["OrderId"];
-            };
+            path?: never;
             cookie?: never;
         };
         /** Hent én bestilling */
-        get: operations["getOrder"];
+        get: operations["GetOrder"];
         put?: never;
         post?: never;
         delete?: never;
@@ -69,43 +64,33 @@ export interface paths {
         head?: never;
         /**
          * Oppdater status på en bestilling
-         * @description Den anbefalte måten å endre status på. `PATCH` fordi vi oppdaterer én
-         *     egenskap på ressursen, ikke erstatter hele den.
-         *
-         *     Publiserer `order.status-changed` til RabbitMQ.
+         * @description Flytter en bestilling ett steg videre: PENDING → BREWING → READY.
          */
-        patch: operations["updateOrderStatus"];
+        patch: operations["UpdateOrderStatus"];
         trace?: never;
     };
-    "/orders/{orderId}/status": {
+    "/orders/{orderId}/rating": {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                /** @description Id-en til bestillingen. */
-                orderId: components["parameters"]["OrderId"];
-            };
+            path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** Hent vurdering for en bestilling */
+        get: operations["GetOrderRating"];
         put?: never;
         /**
-         * Oppdater status på en bestilling (action-variant)
-         * @description Alias for `PATCH /orders/{orderId}`. Finnes fordi oppgave 7 i samling 3 lot
-         *     det være opp til hver deltaker om status skulle endres med `PUT`, `PATCH`
-         *     eller et eget action-endepunkt. Begge de to vanligste variantene er støttet
-         *     slik at en frontend kan peke på deltakerens eget API uten endringer.
-         *
-         *     `PATCH /orders/{orderId}` er anbefalingen.
+         * Vurder en ferdig bestilling
+         * @description Lagrer eller oppdaterer brukerens vurdering av en ferdig bestilling.
          */
-        post: operations["setOrderStatus"];
+        post: operations["CreateOrderRating"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/health": {
+    "/users/{userId}/weekly-summary": {
         parameters: {
             query?: never;
             header?: never;
@@ -113,15 +98,53 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Helsesjekk
-         * @description Brukes av Docker sin healthcheck. Svarer alltid `200` så lenge HTTP-serveren
-         *     lever — status på RabbitMQ-tilkoblingen rapporteres i `rabbitmq`-feltet, men
-         *     gjør ikke tjenesten usunn. API-et skal fungere selv om broker er nede.
+         * Hent ukas kaffeoppsummering
+         * @description Viser vurderinger fra inneværende uke, regnet fra mandag i UTC.
          */
-        get: operations["getHealth"];
+        get: operations["GetWeeklySummary"];
         put?: never;
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Opprett en bruker
+         * @description Oppretter en bruker med navn og returnerer brukeren med en autogenerert ID.
+         */
+        post: operations["CreateUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{userId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Slett en bruker
+         * @description Sletter brukeren med angitt ID. Returnerer 404 hvis brukeren ikke finnes.
+         */
+        delete: operations["DeleteUser"];
         options?: never;
         head?: never;
         patch?: never;
@@ -131,206 +154,120 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /**
-         * Coffee
-         * @description Representerer en kaffedrikk på menyen.
-         */
         Coffee: {
-            /**
-             * Format: uuid
-             * @example c0ffee01-0000-4000-8000-000000000001
-             */
+            /** Format: uuid */
             id: string;
-            /** @example Kaffe Latte */
             name: string;
-            /**
-             * @description Pris i norske kroner.
-             * @example 52
-             */
-            price: number;
+            /** Format: double */
+            price: number | string;
         };
-        /**
-         * OrderStatus
-         * @description Livssyklusen til en bestilling. `PENDING` → `BREWING` → `READY`.
-         * @example PENDING
-         * @enum {string}
-         */
-        OrderStatus: "PENDING" | "BREWING" | "READY";
-        /**
-         * CoffeeSize
-         * @example MEDIUM
-         * @enum {string}
-         */
+        /** @enum {unknown} */
+        CoffeeRating: "SAVED_MY_MORNING" | "PRETTY_OK" | "TASTED_LIKE_A_HUG";
+        /** @enum {unknown} */
         CoffeeSize: "SMALL" | "MEDIUM" | "LARGE";
-        /**
-         * MilkType
-         * @example OAT
-         * @enum {string}
-         */
-        MilkType: "WHOLE" | "SKIMMED" | "OAT" | "SOY";
-        /**
-         * CreateOrderRequest
-         * @description Det kunden sender inn for å bestille.
-         */
         CreateOrderRequest: {
-            /**
-             * Format: uuid
-             * @description Id-en til en kaffe fra `GET /menu`.
-             * @example c0ffee01-0000-4000-8000-000000000001
-             */
+            /** Format: uuid */
             coffeeId: string;
-            /**
-             * @description Navnet bestillingen ropes opp på. Kan ikke være blankt.
-             * @example Ada
-             */
             customerName: string;
             size: components["schemas"]["CoffeeSize"];
-            milkType?: components["schemas"]["MilkType"];
-            /**
-             * @description Ekstra shot espresso.
-             * @example false
-             */
-            extraShot?: boolean;
-            /**
-             * @description Antall kopper i samme bestilling.
-             * @default 1
-             * @example 1
-             */
-            quantity: number;
+            milkType?: null | components["schemas"]["MilkType"];
+            extraShot?: null | boolean;
+            /** Format: int32 */
+            quantity?: number | string;
         };
-        /**
-         * UpdateOrderStatusRequest
-         * @description Et dedikert request-objekt som kun inneholder det som skal endres — ikke
-         *     hele `Order`. Det gjør det umulig for en klient å ved et uhell skrive over
-         *     `createdAt` eller `customerName`.
-         */
+        CreateRatingRequest: {
+            rating?: null | components["schemas"]["CoffeeRating"];
+        };
+        CreateUserRequest: {
+            name: string;
+        };
+        /** @enum {unknown} */
+        DayOfWeek: "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday";
+        HttpValidationProblemDetails: {
+            type?: null | string;
+            title?: null | string;
+            /** Format: int32 */
+            status?: null | number | string;
+            detail?: null | string;
+            instance?: null | string;
+            errors?: {
+                [key: string]: string[];
+            };
+        };
+        /** @enum {unknown} */
+        MilkType: "WHOLE" | "SKIMMED" | "OAT" | "SOY" | null;
+        Order: {
+            /** Format: uuid */
+            orderId: string;
+            /** Format: uuid */
+            coffeeId: string;
+            coffeeName: string;
+            customerName: string;
+            size: components["schemas"]["CoffeeSize"];
+            milkType: null | components["schemas"]["MilkType"];
+            extraShot: null | boolean;
+            /** Format: int32 */
+            quantity: number | string;
+            status: components["schemas"]["OrderStatus"];
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        OrderRating: {
+            /** Format: uuid */
+            orderId: string;
+            /** Format: uuid */
+            userId: string;
+            rating: components["schemas"]["CoffeeRating"];
+            dayOfWeek: components["schemas"]["DayOfWeek"];
+            /** Format: date-time */
+            createdAt: string;
+        };
+        /** @enum {unknown} */
+        OrderStatus: "PENDING" | "BREWING" | "READY";
+        RatingMessage: {
+            text: string;
+            focusDay: null | components["schemas"]["DayOfWeek"];
+        };
         UpdateOrderStatusRequest: {
             status: components["schemas"]["OrderStatus"];
         };
-        /**
-         * Order
-         * @description En bestilling slik serveren svarer med den.
-         */
-        Order: {
-            /**
-             * Format: uuid
-             * @example 7f3f1f6e-9a0a-4e0c-9f5f-2f0a5a1d8b21
-             */
-            orderId: string;
-            /**
-             * Format: uuid
-             * @example c0ffee01-0000-4000-8000-000000000001
-             */
-            coffeeId: string;
-            /**
-             * @description Denormalisert fra menyen, slik at en klient kan vise ordren uten et ekstra kall.
-             * @example Kaffe Latte
-             */
-            coffeeName: string;
-            /** @example Ada */
-            customerName: string;
-            size: components["schemas"]["CoffeeSize"];
-            milkType?: components["schemas"]["MilkType"];
-            /** @example false */
-            extraShot?: boolean;
-            /** @example 1 */
-            quantity: number;
-            status: components["schemas"]["OrderStatus"];
-            /**
-             * Format: date-time
-             * @example 2026-09-13T09:41:12.004Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2026-09-13T09:41:20.118Z
-             */
-            updatedAt: string;
+        UserResponse: {
+            /** Format: uuid */
+            id: string;
+            name: string;
         };
-        /**
-         * Problem
-         * @description Feilrespons etter RFC 7807 (Problem Details for HTTP APIs).
-         *     Sendes med `Content-Type: application/problem+json`.
-         */
-        Problem: {
-            /**
-             * @description URI som identifiserer feiltypen.
-             * @example https://codeacademy.soprasteria.no/problems/validation-error
-             */
-            type: string;
-            /**
-             * @description Kort, menneskelesbar oppsummering.
-             * @example Ugyldig forespørsel
-             */
-            title: string;
-            /** @example 400 */
-            status: number;
-            /**
-             * @description Forklaring knyttet til akkurat denne forekomsten.
-             * @example customerName må være minst 2 tegn
-             */
-            detail?: string;
-            /**
-             * @description Stien som feilet.
-             * @example /orders
-             */
-            instance?: string;
-            /** @description Feltene som ikke validerte. Kun ved 400. */
-            errors?: components["schemas"]["ValidationError"][];
-        };
-        /** ValidationError */
-        ValidationError: {
-            /**
-             * @description Feltet som feilet, som en peker inn i requesten.
-             * @example customerName
-             */
-            field: string;
-            /** @example must NOT have fewer than 2 characters */
-            message: string;
-        };
-        /** Health */
-        Health: {
-            /** @enum {string} */
-            status: "ok";
-            /**
-             * @description Tilstanden på broker-tilkoblingen. API-et fungerer uansett verdi.
-             * @enum {string}
-             */
-            rabbitmq: "connected" | "disconnected" | "disabled";
-            uptimeSeconds: number;
+        WeeklySummary: {
+            /** Format: int32 */
+            savedMondaysCount: number | string;
+            /** Format: int32 */
+            savedTuesdaysCount: number | string;
+            /** Format: int32 */
+            savedWednesdaysCount: number | string;
+            /** Format: int32 */
+            savedThursdaysCount: number | string;
+            /** Format: int32 */
+            savedFridaysCount: number | string;
+            /** Format: int32 */
+            savedSaturdaysCount: number | string;
+            /** Format: int32 */
+            savedSundaysCount: number | string;
+            ratingCounts: {
+                [key: string]: number | string;
+            };
+            messages: components["schemas"]["RatingMessage"][];
         };
     };
-    responses: {
-        /** @description Requesten var ugyldig. */
-        BadRequest: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/problem+json": components["schemas"]["Problem"];
-            };
-        };
-        /** @description Ressursen finnes ikke. */
-        NotFound: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/problem+json": components["schemas"]["Problem"];
-            };
-        };
-    };
-    parameters: {
-        /** @description Id-en til bestillingen. */
-        OrderId: string;
-    };
+    responses: never;
+    parameters: never;
     requestBodies: never;
     headers: never;
     pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    getMenu: {
+    GetMenu: {
         parameters: {
             query?: never;
             header?: never;
@@ -339,7 +276,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description En liste med kaffedrikker ble vellykket hentet. */
+            /** @description OK */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -350,15 +287,12 @@ export interface operations {
             };
         };
     };
-    listOrders: {
+    ListOrders: {
         parameters: {
             query?: {
-                /** @description Returner kun bestillinger med denne statusen. */
                 status?: components["schemas"]["OrderStatus"];
-                /** @description Maks antall bestillinger i svaret. */
-                limit?: number;
-                /** @description Hvor mange bestillinger som skal hoppes over. */
-                offset?: number;
+                limit?: number | string;
+                offset?: number | string;
             };
             header?: never;
             path?: never;
@@ -366,7 +300,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description En liste med bestillinger. */
+            /** @description OK */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -375,10 +309,16 @@ export interface operations {
                     "application/json": components["schemas"]["Order"][];
                 };
             };
-            400: components["responses"]["BadRequest"];
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
-    createOrder: {
+    CreateOrder: {
         parameters: {
             query?: never;
             header?: never;
@@ -391,34 +331,45 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Bestillingen ble opprettet. */
+            /** @description Created */
             201: {
                 headers: {
-                    /** @description URL-en til den opprettede bestillingen. */
-                    Location?: string;
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": components["schemas"]["Order"];
                 };
             };
-            400: components["responses"]["BadRequest"];
-            404: components["responses"]["NotFound"];
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
-    getOrder: {
+    GetOrder: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description Id-en til bestillingen. */
-                orderId: components["parameters"]["OrderId"];
+                orderId: string;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description Bestillingen ble funnet. */
+            /** @description OK */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -427,17 +378,21 @@ export interface operations {
                     "application/json": components["schemas"]["Order"];
                 };
             };
-            400: components["responses"]["BadRequest"];
-            404: components["responses"]["NotFound"];
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
-    updateOrderStatus: {
+    UpdateOrderStatus: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description Id-en til bestillingen. */
-                orderId: components["parameters"]["OrderId"];
+                orderId: string;
             };
             cookie?: never;
         };
@@ -447,7 +402,7 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Statusen ble oppdatert. */
+            /** @description OK */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -456,56 +411,193 @@ export interface operations {
                     "application/json": components["schemas"]["Order"];
                 };
             };
-            400: components["responses"]["BadRequest"];
-            404: components["responses"]["NotFound"];
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
-    setOrderStatus: {
+    GetOrderRating: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description Id-en til bestillingen. */
-                orderId: components["parameters"]["OrderId"];
+                orderId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRating"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateOrderRating: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                orderId: string;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UpdateOrderStatusRequest"];
+                "application/json": components["schemas"]["CreateRatingRequest"];
             };
         };
         responses: {
-            /** @description Statusen ble oppdatert. */
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderRating"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetWeeklySummary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Order"];
+                    "application/json": components["schemas"]["WeeklySummary"];
                 };
             };
-            400: components["responses"]["BadRequest"];
-            404: components["responses"]["NotFound"];
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
-    getHealth: {
+    CreateUser: {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateUserRequest"];
+            };
+        };
         responses: {
-            /** @description Tjenesten lever. */
-            200: {
+            /** @description Created */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Health"];
+                    "application/json": components["schemas"]["UserResponse"];
                 };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+        };
+    };
+    DeleteUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
