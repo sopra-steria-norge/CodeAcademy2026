@@ -7,10 +7,14 @@ public static class Receipts
 {
     public static void Write(IEnumerable<Order> orders, Action<string> write)
     {
-        // TODO 1A: for hver ordre, skriv kundenavn, status og totalpris.
-        // For hver linje i ordren, skriv antall, drikk, størrelse, bønnens navn
-        // og brenneriets navn: order.Lines → line.Bean → bean.Roastery.Name.
-        // Bruk write(...), ikke Console.WriteLine. Da havner det i testresultatet.
-        throw new NotImplementedException("Oppgave 1A: skriv ut kvitteringene");
+        foreach (var order in orders)
+        {
+            write($"{order.CustomerName} {order.Status} {order.TotalPrice}");
+
+            foreach (var line in order.Lines)
+            {
+                write($"- {line.Quantity}, {line.DrinkName} {line.Size} {line.Bean.Name}, {line.Bean.Roastery.Name}");
+            }
+        }
     }
 }

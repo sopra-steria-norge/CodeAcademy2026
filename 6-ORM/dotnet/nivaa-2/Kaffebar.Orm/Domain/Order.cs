@@ -18,4 +18,21 @@ public class Order
 
     public virtual List<OrderLine> Lines { get; set; } = [];
     public virtual List<StatusChange> StatusHistory { get; set; } = [];
+
+    public void AddLine(OrderLine line)
+    {
+        Lines.Add(line);
+        TotalPrice += line.UnitPrice * line.Quantity;
+    }
+
+    public void RemoveLine(int lineId)
+    {
+        var line = Lines.SingleOrDefault(l => l.Id == lineId);
+        
+        if (line == null)
+            throw new InvalidOperationException("Cannot remove line");
+        
+        Lines.Remove(line);
+        TotalPrice -= line.UnitPrice  * line.Quantity;
+    }
 }

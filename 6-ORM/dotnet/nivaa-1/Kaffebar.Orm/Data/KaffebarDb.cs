@@ -40,7 +40,7 @@ public static class KaffebarDb
         // Microsoft.EntityFrameworkCore.Proxies er allerede installert.
         if (lazyLoading)
         {
-            // TODO 1B: skru på lazy loading her.
+            builder.UseLazyLoadingProxies();
         }
 
         return new KaffebarDbContext(builder.Options);

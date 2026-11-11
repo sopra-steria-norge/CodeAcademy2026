@@ -10,6 +10,19 @@ public partial class KaffebarRepository
     public Task<List<Order>> GetOrdersWithLinesAndHistoryAsync()
     {
         // TODO 2B: ta med både Lines og StatusHistory. Se hvor mange rader du får.
-        throw new NotImplementedException("Oppgave 2B");
+        // return db.Orders
+        //     .Include(o => o.Lines)
+        //     .ThenInclude(l => l.Bean)
+        //     .ThenInclude(b => b.Roastery)
+        //     .Include(o => o.StatusHistory)
+        //     .ToListAsync();
+        
+        return db.Orders
+            .Include(o => o.Lines)
+            .ThenInclude(l => l.Bean)
+            .ThenInclude(b => b.Roastery)
+            .Include(o => o.StatusHistory)
+            .AsSplitQuery()
+            .ToListAsync();
     }
 }

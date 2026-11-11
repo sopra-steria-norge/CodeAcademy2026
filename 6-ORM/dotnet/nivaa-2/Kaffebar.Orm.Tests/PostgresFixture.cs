@@ -20,7 +20,7 @@ public class PostgresFixture : IAsyncLifetime
     /// Sett til <c>false</c> for å skjule SQL-en EF sender. Advarslene fra EF og dataene testene skriver
     /// ut vises fortsatt.
     /// </summary>
-    private static readonly bool ShowSql = false;
+    private static readonly bool ShowSql = true;
 
     private PostgreSqlContainer? _container;
     private string? _externalAdminConnectionString;

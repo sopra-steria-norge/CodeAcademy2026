@@ -7,9 +7,9 @@ namespace Kaffebar.Orm;
 public partial class KaffebarRepository
 {
     /// <summary>Alle bestillinger, eldste først.</summary>
-    public Task<List<Order>> GetAllOrdersAsync()
+    public async Task<List<Order>> GetAllOrdersAsync()
     {
-        // TODO 1A: hent alle ordrene, sortert på CreatedAt. Ikke noe mer enn det.
-        throw new NotImplementedException("Oppgave 1A");
+        var orders = await db.Orders.OrderBy(o => o.CreatedAt).ToListAsync();
+        return orders;
     }
 }
