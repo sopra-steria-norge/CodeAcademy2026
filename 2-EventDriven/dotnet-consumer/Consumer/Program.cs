@@ -1,15 +1,9 @@
-﻿using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using CodeAcademy.DotnetConsumer.Common.Config;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+﻿
+using Consumer.ConsumerFactory;
 
 Console.WriteLine("Starting Consumer application...");
 
-// Establish connection to RabbitMQ
-using var connection = await ConnectionHelper.ConnectAsync();
-Console.WriteLine("Connected to RabbitMQ");
+var consumer = await ConsumerFactory.CreateConsumer();
 
 // Implement a basic consumer here.
 // Start with:
@@ -18,6 +12,9 @@ Console.WriteLine("Connected to RabbitMQ");
 // - Create a consumer and subscribe to the queue
 // - Handle incoming messages by deserializing the JSON and printing the content to the console
 
+<<<<<<< HEAD
+Console.ReadLine();
+=======
 
 
 // Create a channel and declare the queue
@@ -44,3 +41,4 @@ consumer.ReceivedAsync += async (sender, eventArgs) =>
 // Start consuming messages
 await channel.BasicConsumeAsync(queue: "idem-events", autoAck: false, consumerTag: "", noLocal: false, exclusive: false, arguments: null, consumer: consumer);
 Console.ReadLine(); // Keep the application running to listen for messages
+>>>>>>> 331ffec73b954d6698a255a6a0a1f24184e6d75b
