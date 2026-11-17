@@ -1,0 +1,1507 @@
+[main] WARN org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+Hibernate: set client_min_messages = WARNING
+Hibernate: alter table if exists Bestillingslinje drop constraint if exists FKobcj0xloltj1ux4u0bib75kho
+Hibernate: alter table if exists Bestillingslinje drop constraint if exists FKitp9xi6x0giqrh3i0otdqyylw
+Hibernate: alter table if exists Kaffebonne drop constraint if exists FK85i23wfncgyyrscsocuxynyrt
+Hibernate: alter table if exists Tilpasning drop constraint if exists FKij93e9tn88lbupq001nfj54ie
+Hibernate: drop table if exists Bestilling cascade
+Hibernate: drop table if exists Bestillingslinje cascade
+Hibernate: drop table if exists Brenneri cascade
+Hibernate: drop table if exists Kaffebonne cascade
+Hibernate: drop table if exists Tilpasning cascade
+Hibernate: drop sequence if exists Bestilling_SEQ
+Hibernate: drop sequence if exists Bestillingslinje_SEQ
+Hibernate: drop sequence if exists Brenneri_SEQ
+Hibernate: drop sequence if exists Kaffebonne_SEQ
+Hibernate: drop sequence if exists Tilpasning_SEQ
+Hibernate: create sequence Bestilling_SEQ start with 1 increment by 50
+Hibernate: create sequence Bestillingslinje_SEQ start with 1 increment by 50
+Hibernate: create sequence Brenneri_SEQ start with 1 increment by 50
+Hibernate: create sequence Kaffebonne_SEQ start with 1 increment by 50
+Hibernate: create sequence Tilpasning_SEQ start with 1 increment by 50
+Hibernate: create table Bestilling (totalpris numeric(38,2), id bigint not null, tidspunkt timestamp(6), kundenavn varchar(255), status varchar(255) check ((status in ('MOTTATT','KLAR','HENTET'))), primary key (id))
+Hibernate: create table Bestillingslinje (antall integer not null, enhetspris numeric(38,2), bestilling_id bigint not null, id bigint not null, kaffebonne_id bigint not null, primary key (id))
+Hibernate: create table Brenneri (id bigint not null, navn varchar(255), sted varchar(255), primary key (id))
+Hibernate: create table Kaffebonne (brenneri_id bigint not null, id bigint not null, navn varchar(255), opprinnelse varchar(255), primary key (id))
+Hibernate: create table Tilpasning (tillegg numeric(38,2), bestilling_id bigint not null, id bigint not null, beskrivelse varchar(255), primary key (id))
+Hibernate: alter table if exists Bestillingslinje add constraint FKobcj0xloltj1ux4u0bib75kho foreign key (bestilling_id) references Bestilling
+Hibernate: alter table if exists Bestillingslinje add constraint FKitp9xi6x0giqrh3i0otdqyylw foreign key (kaffebonne_id) references Kaffebonne
+Hibernate: alter table if exists Kaffebonne add constraint FK85i23wfncgyyrscsocuxynyrt foreign key (brenneri_id) references Brenneri
+Hibernate: alter table if exists Tilpasning add constraint FKij93e9tn88lbupq001nfj54ie foreign key (bestilling_id) references Bestilling
+Hibernate: select nextval('Brenneri_SEQ')
+Hibernate: select nextval('Brenneri_SEQ')
+Hibernate: select nextval('Kaffebonne_SEQ')
+Hibernate: select nextval('Kaffebonne_SEQ')
+Hibernate: select nextval('Bestilling_SEQ')
+Hibernate: select nextval('Bestillingslinje_SEQ')
+Hibernate: select nextval('Bestillingslinje_SEQ')
+Hibernate: select nextval('Tilpasning_SEQ')
+Hibernate: select nextval('Tilpasning_SEQ')
+Hibernate: select nextval('Bestilling_SEQ')
+Hibernate: select nextval('Bestillingslinje_SEQ')
+Hibernate: select nextval('Tilpasning_SEQ')
+Hibernate: select nextval('Bestillingslinje_SEQ')
+Hibernate: select nextval('Bestilling_SEQ')
+Hibernate: select nextval('Tilpasning_SEQ')
+Hibernate: select nextval('Bestillingslinje_SEQ')
+Hibernate: select nextval('Bestillingslinje_SEQ')
+Hibernate: select nextval('Tilpasning_SEQ')
+Hibernate: insert into Brenneri (navn,sted,id) values (?,?,?)
+Hibernate: insert into Brenneri (navn,sted,id) values (?,?,?)
+Hibernate: insert into Brenneri (navn,sted,id) values (?,?,?)
+Hibernate: insert into Brenneri (navn,sted,id) values (?,?,?)
+Hibernate: insert into Brenneri (navn,sted,id) values (?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Kaffebonne (brenneri_id,navn,opprinnelse,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+Hibernate: insert into Tilpasning (beskrivelse,bestilling_id,tillegg,id) values (?,?,?,?)
+
+Postgres kjører på jdbc:postgresql://localhost:32827/kaffebar?loggerLevel=OFF (bruker/passord: barista/barista)
+
+Hibernate: select k1_0.id from Kaffebonne k1_0 order by k1_0.id
+Hibernate: insert into Bestilling (kundenavn,status,tidspunkt,totalpris,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: insert into Bestillingslinje (antall,bestilling_id,enhetspris,kaffebonne_id,id) values (?,?,?,?,?)
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select t1_0.bestilling_id,t1_0.id,t1_0.beskrivelse,t1_0.tillegg from Tilpasning t1_0 where t1_0.bestilling_id=? order by t1_0.id
+Hibernate: delete from Bestillingslinje where id=?
+Hibernate: delete from Bestillingslinje where id=?
+Hibernate: delete from Bestilling where id=?
+Hibernate: select b1_0.id from Bestilling b1_0 where (select count(*) from Bestillingslinje l1_0 where b1_0.id=l1_0.bestilling_id)>=2 order by b1_0.id offset ? rows fetch first ? rows only
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: delete from Bestillingslinje where id=?
+Hibernate: select b1_0.id,b1_0.antall,b1_0.bestilling_id,b1_0.enhetspris,b1_0.kaffebonne_id from Bestillingslinje b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b2_0.id,b2_0.navn,b2_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id join Brenneri b2_0 on b2_0.id=k1_0.brenneri_id order by b1_0.id,l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,t1_0.bestilling_id,t1_0.id,t1_0.beskrivelse,t1_0.tillegg,b1_0.totalpris from Bestilling b1_0 left join Tilpasning t1_0 on b1_0.id=t1_0.bestilling_id order by t1_0.id
+Bestilling 1 – Jonas Olsen
+  3 x Guji Hambela (Fuglen)
+  3 x La Esperanza (Supreme Roastworks)
+  + Ekstra varm
+  + Havremelk
+Bestilling 2 – Ingrid Haugen
+  2 x Daterra Sweet Collection (Kaffa)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Santa Barbara (Fuglen)
+Bestilling 3 – Sofie Nordmann
+  3 x Guji Hambela (Fuglen)
+  + Ekstra varm
+Bestilling 4 – Jonas Dahl
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Ekstra varm
+  + Havremelk
+  + Ekstra varm
+Bestilling 5 – Maja Olsen
+  2 x Yirgacheffe Konga (Kaffa)
+  + Laktosefri melk
+Bestilling 6 – Magnus Olsen
+  2 x Karimikui (Supreme Roastworks)
+Bestilling 7 – Nora Hansen
+  3 x Nyeri Hill (Tim Wendelboe)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  2 x Gatomboya (Tim Wendelboe)
+  2 x Santa Barbara (Fuglen)
+  + Havremelk
+Bestilling 8 – Magnus Olsen
+  2 x Bombe (Supreme Roastworks)
+  2 x Finca Tamana (Kaffa)
+  + Ekstra shot
+  + Karamellsirup
+Bestilling 9 – Lars Bakken
+  1 x Kiambu (Jacu Coffee Roastery)
+  1 x Gatomboya (Tim Wendelboe)
+  3 x Huila Decaf (Fuglen)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Ekstra varm
+  + Laktosefri melk
+  + Ekstra varm
+Bestilling 10 – Thea Bakken
+  1 x Santa Barbara (Fuglen)
+  + Ekstra shot
+  + Karamellsirup
+  + Ekstra varm
+Bestilling 11 – Ola Hansen
+  1 x Santa Barbara (Fuglen)
+  2 x Bombe (Supreme Roastworks)
+  + Havremelk
+Bestilling 12 – Ingrid Johansen
+  3 x Yirgacheffe Konga (Kaffa)
+  1 x Sidamo Bensa (Jacu Coffee Roastery)
+  3 x Finca Tamana (Kaffa)
+  + Ekstra shot
+Bestilling 13 – Ingrid Olsen
+  3 x Finca Tamana (Kaffa)
+  + Karamellsirup
+Bestilling 14 – Lars Olsen
+  1 x Karimikui (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+  + Ekstra shot
+  + Havremelk
+  + Laktosefri melk
+Bestilling 15 – Sindre Johansen
+  2 x Karimikui (Supreme Roastworks)
+  1 x Gatomboya (Tim Wendelboe)
+  + Ekstra shot
+Bestilling 16 – Ida Hansen
+  1 x Bombe (Supreme Roastworks)
+  2 x Kiambu (Jacu Coffee Roastery)
+  2 x Yirgacheffe Konga (Kaffa)
+  1 x Karimikui (Supreme Roastworks)
+  + Ekstra varm
+  + Havremelk
+  + Havremelk
+Bestilling 17 – Jonas Haugen
+  3 x Finca Tamana (Kaffa)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Huila Decaf (Fuglen)
+  + Laktosefri melk
+Bestilling 18 – Lars Lie
+  3 x El Puente (Tim Wendelboe)
+  3 x Gatomboya (Tim Wendelboe)
+  + Havremelk
+  + Laktosefri melk
+Bestilling 19 – Magnus Larsen
+  3 x Finca Tamana (Kaffa)
+  3 x Santa Barbara (Fuglen)
+  + Ekstra shot
+  + Laktosefri melk
+  + Laktosefri melk
+Bestilling 20 – Lars Olsen
+  2 x Yirgacheffe Konga (Kaffa)
+  1 x Sidamo Bensa (Jacu Coffee Roastery)
+  1 x Huila Decaf (Fuglen)
+Bestilling 21 – Astrid Nordmann
+  1 x Guji Hambela (Fuglen)
+  1 x El Puente (Tim Wendelboe)
+  1 x Guji Hambela (Fuglen)
+  + Havremelk
+Bestilling 22 – Sindre Berg
+  2 x Huila Decaf (Fuglen)
+  1 x Finca Tamana (Kaffa)
+  2 x El Puente (Tim Wendelboe)
+  + Laktosefri melk
+  + Karamellsirup
+  + Havremelk
+Bestilling 23 – Jonas Dahl
+  2 x Gatomboya (Tim Wendelboe)
+  1 x Karimikui (Supreme Roastworks)
+  + Laktosefri melk
+Bestilling 24 – Ola Olsen
+  2 x Kiambu (Jacu Coffee Roastery)
+  3 x Daterra Sweet Collection (Kaffa)
+  + Havremelk
+  + Ekstra shot
+  + Ekstra varm
+Bestilling 25 – Kari Nordmann
+  3 x Nyeri Hill (Tim Wendelboe)
+  3 x Bombe (Supreme Roastworks)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Havremelk
+  + Havremelk
+Bestilling 26 – Henrik Haugen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Karimikui (Supreme Roastworks)
+  + Ekstra varm
+  + Laktosefri melk
+Bestilling 27 – Ida Olsen
+  1 x Gatomboya (Tim Wendelboe)
+  + Laktosefri melk
+  + Laktosefri melk
+Bestilling 28 – Maja Larsen
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 29 – Thea Lie
+  2 x Santa Barbara (Fuglen)
+Bestilling 30 – Magnus Hansen
+  2 x Kiambu (Jacu Coffee Roastery)
+  + Havremelk
+  + Ekstra shot
+  + Ekstra shot
+Bestilling 31 – Astrid Johansen
+  1 x Huila Decaf (Fuglen)
+  + Ekstra shot
+Bestilling 32 – Sofie Nordmann
+  3 x Yirgacheffe Konga (Kaffa)
+  2 x Nyeri Hill (Tim Wendelboe)
+  3 x El Puente (Tim Wendelboe)
+  + Laktosefri melk
+Bestilling 33 – Sofie Haugen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Laktosefri melk
+Bestilling 34 – Ola Bakken
+  1 x Kiambu (Jacu Coffee Roastery)
+  3 x Guji Hambela (Fuglen)
+  3 x Nyeri Hill (Tim Wendelboe)
+Bestilling 35 – Sofie Johansen
+  1 x Guji Hambela (Fuglen)
+  2 x Santa Barbara (Fuglen)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Ekstra shot
+  + Havremelk
+  + Karamellsirup
+Bestilling 36 – Astrid Lie
+  2 x Gatomboya (Tim Wendelboe)
+  1 x Daterra Sweet Collection (Kaffa)
+  + Karamellsirup
+Bestilling 37 – Magnus Larsen
+  1 x Karimikui (Supreme Roastworks)
+  + Laktosefri melk
+Bestilling 38 – Astrid Berg
+  1 x Bombe (Supreme Roastworks)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  + Ekstra shot
+  + Havremelk
+Bestilling 39 – Magnus Haugen
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Finca Tamana (Kaffa)
+  + Havremelk
+  + Havremelk
+  + Karamellsirup
+Bestilling 40 – Henrik Lie
+  1 x Kiambu (Jacu Coffee Roastery)
+  3 x Guji Hambela (Fuglen)
+  2 x Yirgacheffe Konga (Kaffa)
+  + Ekstra shot
+  + Laktosefri melk
+  + Havremelk
+Bestilling 41 – Magnus Berg
+  1 x Huila Decaf (Fuglen)
+  + Havremelk
+Bestilling 42 – Lars Larsen
+  1 x Yirgacheffe Konga (Kaffa)
+  1 x Santa Barbara (Fuglen)
+  2 x Gatomboya (Tim Wendelboe)
+  + Ekstra varm
+  + Karamellsirup
+  + Laktosefri melk
+Bestilling 43 – Ingrid Lie
+  1 x Kiambu (Jacu Coffee Roastery)
+  1 x Daterra Sweet Collection (Kaffa)
+  + Laktosefri melk
+  + Ekstra varm
+  + Karamellsirup
+Bestilling 44 – Ingrid Larsen
+  2 x La Esperanza (Supreme Roastworks)
+  2 x Bombe (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+  + Laktosefri melk
+Bestilling 45 – Kari Lie
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  + Karamellsirup
+  + Havremelk
+  + Ekstra shot
+Bestilling 46 – Nora Hansen
+  1 x Bombe (Supreme Roastworks)
+  1 x La Esperanza (Supreme Roastworks)
+  3 x Daterra Sweet Collection (Kaffa)
+  1 x Bombe (Supreme Roastworks)
+Bestilling 47 – Henrik Larsen
+  1 x Karimikui (Supreme Roastworks)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Laktosefri melk
+Bestilling 48 – Ola Bakken
+  3 x Huila Decaf (Fuglen)
+  3 x Gatomboya (Tim Wendelboe)
+  3 x Bombe (Supreme Roastworks)
+  + Ekstra shot
+  + Karamellsirup
+  + Ekstra varm
+Bestilling 49 – Ingrid Larsen
+  2 x Bombe (Supreme Roastworks)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  1 x Bombe (Supreme Roastworks)
+  + Ekstra shot
+  + Ekstra shot
+Bestilling 50 – Ingrid Larsen
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+  2 x Kiambu (Jacu Coffee Roastery)
+  1 x Daterra Sweet Collection (Kaffa)
+  3 x Santa Barbara (Fuglen)
+  + Ekstra shot
+  + Ekstra shot
+Bestilling 51 – Sofie Olsen
+  3 x Guji Hambela (Fuglen)
+  3 x Kiambu (Jacu Coffee Roastery)
+  + Ekstra varm
+  + Havremelk
+Bestilling 52 – Lars Johansen
+  2 x Bombe (Supreme Roastworks)
+  1 x Karimikui (Supreme Roastworks)
+  3 x Finca Tamana (Kaffa)
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+  + Ekstra shot
+Bestilling 53 – Magnus Hansen
+  2 x Karimikui (Supreme Roastworks)
+  2 x Kiambu (Jacu Coffee Roastery)
+  1 x Nyeri Hill (Tim Wendelboe)
+  + Ekstra shot
+Bestilling 54 – Sindre Dahl
+  3 x Yirgacheffe Konga (Kaffa)
+  3 x La Esperanza (Supreme Roastworks)
+  + Laktosefri melk
+Bestilling 55 – Lars Haugen
+  3 x Nyeri Hill (Tim Wendelboe)
+  2 x Huila Decaf (Fuglen)
+  3 x Yirgacheffe Konga (Kaffa)
+  3 x Santa Barbara (Fuglen)
+  + Havremelk
+  + Ekstra varm
+  + Havremelk
+Bestilling 56 – Henrik Bakken
+  3 x El Puente (Tim Wendelboe)
+  1 x Finca Tamana (Kaffa)
+  2 x La Esperanza (Supreme Roastworks)
+  + Laktosefri melk
+Bestilling 57 – Maja Hansen
+  3 x Yirgacheffe Konga (Kaffa)
+Bestilling 58 – Lars Hansen
+  2 x La Esperanza (Supreme Roastworks)
+  2 x Yirgacheffe Konga (Kaffa)
+  1 x Guji Hambela (Fuglen)
+  3 x Yirgacheffe Konga (Kaffa)
+Bestilling 59 – Nora Haugen
+  2 x Karimikui (Supreme Roastworks)
+  + Laktosefri melk
+  + Ekstra varm
+  + Ekstra varm
+Bestilling 60 – Thea Bakken
+  1 x Daterra Sweet Collection (Kaffa)
+  1 x Finca Tamana (Kaffa)
+  + Laktosefri melk
+  + Havremelk
+  + Havremelk
+Bestilling 61 – Thea Larsen
+  2 x Santa Barbara (Fuglen)
+  2 x Kiambu (Jacu Coffee Roastery)
+  2 x Bombe (Supreme Roastworks)
+  + Ekstra varm
+Bestilling 62 – Jonas Larsen
+  2 x Bombe (Supreme Roastworks)
+  3 x Kiambu (Jacu Coffee Roastery)
+  2 x Finca Tamana (Kaffa)
+  + Ekstra varm
+Bestilling 63 – Lars Nordmann
+  1 x La Esperanza (Supreme Roastworks)
+  2 x Santa Barbara (Fuglen)
+  3 x El Puente (Tim Wendelboe)
+  2 x Huila Decaf (Fuglen)
+  + Havremelk
+  + Ekstra shot
+Bestilling 64 – Thea Larsen
+  3 x Bombe (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  + Ekstra varm
+  + Ekstra shot
+Bestilling 65 – Maja Dahl
+  1 x Yirgacheffe Konga (Kaffa)
+  3 x El Puente (Tim Wendelboe)
+  3 x Gatomboya (Tim Wendelboe)
+  + Havremelk
+  + Ekstra varm
+  + Ekstra varm
+Bestilling 66 – Henrik Nordmann
+  2 x Kiambu (Jacu Coffee Roastery)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  + Ekstra varm
+Bestilling 67 – Kari Haugen
+  2 x El Puente (Tim Wendelboe)
+  1 x Santa Barbara (Fuglen)
+  1 x Finca Tamana (Kaffa)
+  + Ekstra shot
+  + Karamellsirup
+  + Havremelk
+Bestilling 68 – Lars Larsen
+  3 x Gatomboya (Tim Wendelboe)
+  3 x Nyeri Hill (Tim Wendelboe)
+  2 x Finca Tamana (Kaffa)
+  2 x Guji Hambela (Fuglen)
+Bestilling 69 – Ola Dahl
+  2 x La Esperanza (Supreme Roastworks)
+  3 x Karimikui (Supreme Roastworks)
+  + Karamellsirup
+  + Havremelk
+Bestilling 70 – Kari Johansen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  3 x La Esperanza (Supreme Roastworks)
+  3 x Karimikui (Supreme Roastworks)
+  1 x El Puente (Tim Wendelboe)
+Bestilling 71 – Thea Larsen
+  1 x El Puente (Tim Wendelboe)
+  1 x Guji Hambela (Fuglen)
+  1 x Yirgacheffe Konga (Kaffa)
+  2 x La Esperanza (Supreme Roastworks)
+Bestilling 72 – Ida Haugen
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Gatomboya (Tim Wendelboe)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Karamellsirup
+  + Laktosefri melk
+Bestilling 73 – Sindre Larsen
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Huila Decaf (Fuglen)
+  + Laktosefri melk
+Bestilling 74 – Sofie Dahl
+  1 x Kiambu (Jacu Coffee Roastery)
+  3 x La Esperanza (Supreme Roastworks)
+  + Karamellsirup
+  + Ekstra varm
+  + Laktosefri melk
+Bestilling 75 – Kari Haugen
+  1 x Guji Hambela (Fuglen)
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+  + Havremelk
+  + Ekstra shot
+  + Havremelk
+Bestilling 76 – Emil Hansen
+  1 x Guji Hambela (Fuglen)
+  2 x Guji Hambela (Fuglen)
+  1 x Santa Barbara (Fuglen)
+Bestilling 77 – Astrid Hansen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Ekstra varm
+Bestilling 78 – Maja Johansen
+  2 x Gatomboya (Tim Wendelboe)
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 79 – Ingrid Larsen
+  3 x Kiambu (Jacu Coffee Roastery)
+  + Karamellsirup
+  + Havremelk
+  + Laktosefri melk
+Bestilling 80 – Thea Nordmann
+  2 x Karimikui (Supreme Roastworks)
+  3 x La Esperanza (Supreme Roastworks)
+  + Karamellsirup
+  + Ekstra varm
+  + Ekstra varm
+Bestilling 81 – Thea Nordmann
+  3 x El Puente (Tim Wendelboe)
+  2 x La Esperanza (Supreme Roastworks)
+  3 x Karimikui (Supreme Roastworks)
+  + Karamellsirup
+Bestilling 82 – Thea Berg
+  3 x Kiambu (Jacu Coffee Roastery)
+  2 x Guji Hambela (Fuglen)
+  1 x Gatomboya (Tim Wendelboe)
+  + Ekstra shot
+Bestilling 83 – Magnus Olsen
+  1 x El Puente (Tim Wendelboe)
+  + Karamellsirup
+Bestilling 84 – Ingrid Haugen
+  1 x Finca Tamana (Kaffa)
+  2 x Daterra Sweet Collection (Kaffa)
+  + Karamellsirup
+  + Laktosefri melk
+  + Karamellsirup
+Bestilling 85 – Thea Bakken
+  1 x Kiambu (Jacu Coffee Roastery)
+  1 x Daterra Sweet Collection (Kaffa)
+  1 x Karimikui (Supreme Roastworks)
+  + Ekstra varm
+Bestilling 86 – Lars Johansen
+  2 x Daterra Sweet Collection (Kaffa)
+  3 x Gatomboya (Tim Wendelboe)
+  3 x Huila Decaf (Fuglen)
+  3 x Karimikui (Supreme Roastworks)
+  + Laktosefri melk
+Bestilling 87 – Magnus Berg
+  3 x La Esperanza (Supreme Roastworks)
+  3 x Gatomboya (Tim Wendelboe)
+  2 x Karimikui (Supreme Roastworks)
+  3 x Guji Hambela (Fuglen)
+Bestilling 88 – Jonas Bakken
+  2 x Santa Barbara (Fuglen)
+  2 x Finca Tamana (Kaffa)
+  1 x Karimikui (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+Bestilling 89 – Henrik Larsen
+  1 x Nyeri Hill (Tim Wendelboe)
+  3 x Yirgacheffe Konga (Kaffa)
+  3 x Huila Decaf (Fuglen)
+Bestilling 90 – Ingrid Nordmann
+  3 x Kiambu (Jacu Coffee Roastery)
+  + Havremelk
+Bestilling 91 – Astrid Bakken
+  3 x Bombe (Supreme Roastworks)
+  1 x Huila Decaf (Fuglen)
+  + Laktosefri melk
+  + Havremelk
+  + Ekstra varm
+Bestilling 92 – Lars Lie
+  2 x Huila Decaf (Fuglen)
+Bestilling 93 – Ola Olsen
+  3 x Santa Barbara (Fuglen)
+  1 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Karimikui (Supreme Roastworks)
+  + Karamellsirup
+Bestilling 94 – Nora Dahl
+  2 x Guji Hambela (Fuglen)
+  + Karamellsirup
+Bestilling 95 – Thea Bakken
+  3 x Nyeri Hill (Tim Wendelboe)
+  1 x Bombe (Supreme Roastworks)
+  3 x Guji Hambela (Fuglen)
+  1 x Huila Decaf (Fuglen)
+  + Karamellsirup
+  + Ekstra varm
+Bestilling 96 – Ingrid Olsen
+  1 x Daterra Sweet Collection (Kaffa)
+  2 x Huila Decaf (Fuglen)
+  1 x Kiambu (Jacu Coffee Roastery)
+  2 x Gatomboya (Tim Wendelboe)
+Bestilling 97 – Astrid Nordmann
+  2 x Daterra Sweet Collection (Kaffa)
+  3 x Daterra Sweet Collection (Kaffa)
+  1 x Yirgacheffe Konga (Kaffa)
+  2 x Gatomboya (Tim Wendelboe)
+  + Laktosefri melk
+  + Havremelk
+Bestilling 98 – Magnus Haugen
+  1 x Nyeri Hill (Tim Wendelboe)
+  1 x Yirgacheffe Konga (Kaffa)
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+  2 x Nyeri Hill (Tim Wendelboe)
+Bestilling 99 – Henrik Johansen
+  1 x Kiambu (Jacu Coffee Roastery)
+  + Ekstra varm
+  + Laktosefri melk
+Bestilling 100 – Nora Larsen
+  3 x Guji Hambela (Fuglen)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  + Laktosefri melk
+  + Ekstra varm
+
+SQL-setninger: select=2, insert=0, update=0, delete=0
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b2_0.id,b2_0.navn,b2_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id join Brenneri b2_0 on b2_0.id=k1_0.brenneri_id order by b1_0.id,l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,t1_0.bestilling_id,t1_0.id,t1_0.beskrivelse,t1_0.tillegg,b1_0.totalpris from Bestilling b1_0 left join Tilpasning t1_0 on b1_0.id=t1_0.bestilling_id order by t1_0.id
+Hibernate: select count(t1_0.id) from Tilpasning t1_0
+Hibernate: select count(b1_0.id) from Bestillingslinje b1_0
+Hibernate: select distinct b1_0.bestilling_id from Bestillingslinje b1_0 join Kaffebonne k1_0 on k1_0.id=b1_0.kaffebonne_id join Brenneri b3_0 on b3_0.id=k1_0.brenneri_id where b3_0.navn=? order by b1_0.bestilling_id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select k1_0.id,k1_0.brenneri_id,k1_0.navn,k1_0.opprinnelse from Kaffebonne k1_0 where k1_0.id=?
+Hibernate: select b1_0.id,b1_0.navn,b1_0.sted from Brenneri b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id from Bestilling b1_0 where not exists(select 1 from Bestillingslinje b2_0 join Kaffebonne k1_0 on k1_0.id=b2_0.kaffebonne_id join Brenneri b4_0 on b4_0.id=k1_0.brenneri_id where b2_0.bestilling_id=b1_0.id and b4_0.navn=?) order by b1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select k1_0.id,k1_0.brenneri_id,k1_0.navn,k1_0.opprinnelse from Kaffebonne k1_0 where k1_0.id=?
+Hibernate: select b1_0.id,b1_0.navn,b1_0.sted from Brenneri b1_0 where b1_0.id=?
+Hibernate: select k1_0.id,k1_0.brenneri_id,k1_0.navn,k1_0.opprinnelse from Kaffebonne k1_0 where k1_0.id=?
+Hibernate: select b1_0.id,b1_0.navn,b1_0.sted from Brenneri b1_0 where b1_0.id=?
+Hibernate: select distinct b1_0.bestilling_id from Bestillingslinje b1_0 join Kaffebonne k1_0 on k1_0.id=b1_0.kaffebonne_id join Brenneri b3_0 on b3_0.id=k1_0.brenneri_id where b3_0.navn=? order by b1_0.bestilling_id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select k1_0.id,k1_0.brenneri_id,k1_0.navn,k1_0.opprinnelse from Kaffebonne k1_0 where k1_0.id=?
+Hibernate: select b1_0.id,b1_0.navn,b1_0.sted from Brenneri b1_0 where b1_0.id=?
+Hibernate: select k1_0.id,k1_0.brenneri_id,k1_0.navn,k1_0.opprinnelse from Kaffebonne k1_0 where k1_0.id=?
+Hibernate: select b1_0.id,b1_0.navn,b1_0.sted from Brenneri b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 order by b1_0.id desc fetch first ? rows only
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestilling b1_0 left join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id where b1_0.id=? order by l1_0.id
+Hibernate: select t1_0.bestilling_id,t1_0.id,t1_0.beskrivelse,t1_0.tillegg from Tilpasning t1_0 where t1_0.bestilling_id=? order by t1_0.id
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+okt. 29, 2026 1:36:47 P.M. org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [localhost:49760]
+okt. 29, 2026 1:36:47 P.M. org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer] Started.
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b2_0.id,b2_0.navn,b2_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 left join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id left join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id left join Brenneri b2_0 on b2_0.id=k1_0.brenneri_id where b1_0.id=? order by l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where (select count(*) from Tilpasning t1_0 where b1_0.id=t1_0.bestilling_id)>0 order by b1_0.id desc fetch first ? rows only
+Hibernate: select l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id from Bestillingslinje l1_0 where l1_0.bestilling_id=? order by l1_0.id
+Hibernate: select t1_0.bestilling_id,t1_0.id,t1_0.beskrivelse,t1_0.tillegg from Tilpasning t1_0 where t1_0.bestilling_id=? order by t1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b2_0.id,b2_0.navn,b2_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 left join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id left join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id left join Brenneri b2_0 on b2_0.id=k1_0.brenneri_id where b1_0.id=? order by l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,t1_0.bestilling_id,t1_0.id,t1_0.beskrivelse,t1_0.tillegg,b1_0.totalpris from Bestilling b1_0 left join Tilpasning t1_0 on b1_0.id=t1_0.bestilling_id where b1_0.id=? order by t1_0.id
+{"id":100,"kundenavn":"Nora Larsen","tidspunkt":"2026-08-26T14:30:00","status":"KLAR","totalpris":335.00,"linjer":[{"kaffebonne":"Guji Hambela","brenneri":"Fuglen","antall":3,"enhetspris":55.00},{"kaffebonne":"Sidamo Bensa","brenneri":"Jacu Coffee Roastery","antall":3,"enhetspris":50.00}],"tilpasninger":["Laktosefri melk","Ekstra varm"]}
+okt. 29, 2026 1:36:47 P.M. org.glassfish.grizzly.http.server.NetworkListener shutdownNow
+INFO: Stopped listener bound to [localhost:49760]
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 order by b1_0.id
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: update Bestilling set kundenavn=?,status=?,tidspunkt=?,totalpris=? where id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: update Bestilling b1_0 set status=?,totalpris=(b1_0.totalpris-?) where b1_0.status=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 where b1_0.id=?
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b3_0.id,b3_0.navn,b3_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 left join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id left join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id left join Brenneri b3_0 on b3_0.id=k1_0.brenneri_id order by b1_0.id,l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b2_0.id,b2_0.navn,b2_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id join Brenneri b2_0 on b2_0.id=k1_0.brenneri_id order by b1_0.id,l1_0.id
+Hibernate: select b1_0.id,b1_0.kundenavn,l1_0.bestilling_id,l1_0.id,l1_0.antall,l1_0.enhetspris,l1_0.kaffebonne_id,k1_0.id,k1_0.brenneri_id,b2_0.id,b2_0.navn,b2_0.sted,k1_0.navn,k1_0.opprinnelse,b1_0.status,b1_0.tidspunkt,b1_0.totalpris from Bestilling b1_0 join Bestillingslinje l1_0 on b1_0.id=l1_0.bestilling_id join Kaffebonne k1_0 on k1_0.id=l1_0.kaffebonne_id join Brenneri b2_0 on b2_0.id=k1_0.brenneri_id order by b1_0.id,l1_0.id
+Bestilling 1 – Jonas Olsen
+  3 x Guji Hambela (Fuglen)
+  3 x La Esperanza (Supreme Roastworks)
+Bestilling 2 – Ingrid Haugen
+  2 x Daterra Sweet Collection (Kaffa)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Santa Barbara (Fuglen)
+Bestilling 3 – Sofie Nordmann
+  3 x Guji Hambela (Fuglen)
+Bestilling 4 – Jonas Dahl
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 5 – Maja Olsen
+  2 x Yirgacheffe Konga (Kaffa)
+Bestilling 6 – Magnus Olsen
+  2 x Karimikui (Supreme Roastworks)
+Bestilling 7 – Nora Hansen
+  3 x Nyeri Hill (Tim Wendelboe)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  2 x Gatomboya (Tim Wendelboe)
+  2 x Santa Barbara (Fuglen)
+Bestilling 8 – Magnus Olsen
+  2 x Bombe (Supreme Roastworks)
+  2 x Finca Tamana (Kaffa)
+Bestilling 9 – Lars Bakken
+  1 x Kiambu (Jacu Coffee Roastery)
+  1 x Gatomboya (Tim Wendelboe)
+  3 x Huila Decaf (Fuglen)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 10 – Thea Bakken
+  1 x Santa Barbara (Fuglen)
+Bestilling 11 – Ola Hansen
+  1 x Santa Barbara (Fuglen)
+  2 x Bombe (Supreme Roastworks)
+Bestilling 12 – Ingrid Johansen
+  3 x Yirgacheffe Konga (Kaffa)
+  1 x Sidamo Bensa (Jacu Coffee Roastery)
+  3 x Finca Tamana (Kaffa)
+Bestilling 13 – Ingrid Olsen
+  3 x Finca Tamana (Kaffa)
+Bestilling 14 – Lars Olsen
+  1 x Karimikui (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+Bestilling 15 – Sindre Johansen
+  2 x Karimikui (Supreme Roastworks)
+  1 x Gatomboya (Tim Wendelboe)
+Bestilling 16 – Ida Hansen
+  1 x Bombe (Supreme Roastworks)
+  2 x Kiambu (Jacu Coffee Roastery)
+  2 x Yirgacheffe Konga (Kaffa)
+  1 x Karimikui (Supreme Roastworks)
+Bestilling 17 – Jonas Haugen
+  3 x Finca Tamana (Kaffa)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Huila Decaf (Fuglen)
+Bestilling 18 – Lars Lie
+  3 x El Puente (Tim Wendelboe)
+  3 x Gatomboya (Tim Wendelboe)
+Bestilling 19 – Magnus Larsen
+  3 x Finca Tamana (Kaffa)
+  3 x Santa Barbara (Fuglen)
+Bestilling 20 – Lars Olsen
+  2 x Yirgacheffe Konga (Kaffa)
+  1 x Sidamo Bensa (Jacu Coffee Roastery)
+  1 x Huila Decaf (Fuglen)
+Bestilling 21 – Astrid Nordmann
+  1 x Guji Hambela (Fuglen)
+  1 x El Puente (Tim Wendelboe)
+  1 x Guji Hambela (Fuglen)
+Bestilling 22 – Sindre Berg
+  2 x Huila Decaf (Fuglen)
+  1 x Finca Tamana (Kaffa)
+  2 x El Puente (Tim Wendelboe)
+Bestilling 23 – Jonas Dahl
+  2 x Gatomboya (Tim Wendelboe)
+  1 x Karimikui (Supreme Roastworks)
+Bestilling 24 – Ola Olsen
+  2 x Kiambu (Jacu Coffee Roastery)
+  3 x Daterra Sweet Collection (Kaffa)
+Bestilling 25 – Kari Nordmann
+  3 x Nyeri Hill (Tim Wendelboe)
+  3 x Bombe (Supreme Roastworks)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 26 – Henrik Haugen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Karimikui (Supreme Roastworks)
+Bestilling 27 – Ida Olsen
+  1 x Gatomboya (Tim Wendelboe)
+Bestilling 28 – Maja Larsen
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 29 – Thea Lie
+  2 x Santa Barbara (Fuglen)
+Bestilling 30 – Magnus Hansen
+  2 x Kiambu (Jacu Coffee Roastery)
+Bestilling 31 – Astrid Johansen
+  1 x Huila Decaf (Fuglen)
+Bestilling 32 – Sofie Nordmann
+  3 x Yirgacheffe Konga (Kaffa)
+  2 x Nyeri Hill (Tim Wendelboe)
+  3 x El Puente (Tim Wendelboe)
+Bestilling 33 – Sofie Haugen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 34 – Ola Bakken
+  1 x Kiambu (Jacu Coffee Roastery)
+  3 x Guji Hambela (Fuglen)
+  3 x Nyeri Hill (Tim Wendelboe)
+Bestilling 35 – Sofie Johansen
+  1 x Guji Hambela (Fuglen)
+  2 x Santa Barbara (Fuglen)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 36 – Astrid Lie
+  2 x Gatomboya (Tim Wendelboe)
+  1 x Daterra Sweet Collection (Kaffa)
+Bestilling 37 – Magnus Larsen
+  1 x Karimikui (Supreme Roastworks)
+Bestilling 38 – Astrid Berg
+  1 x Bombe (Supreme Roastworks)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 39 – Magnus Haugen
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Finca Tamana (Kaffa)
+Bestilling 40 – Henrik Lie
+  1 x Kiambu (Jacu Coffee Roastery)
+  3 x Guji Hambela (Fuglen)
+  2 x Yirgacheffe Konga (Kaffa)
+Bestilling 41 – Magnus Berg
+  1 x Huila Decaf (Fuglen)
+Bestilling 42 – Lars Larsen
+  1 x Yirgacheffe Konga (Kaffa)
+  1 x Santa Barbara (Fuglen)
+  2 x Gatomboya (Tim Wendelboe)
+Bestilling 43 – Ingrid Lie
+  1 x Kiambu (Jacu Coffee Roastery)
+  1 x Daterra Sweet Collection (Kaffa)
+Bestilling 44 – Ingrid Larsen
+  2 x La Esperanza (Supreme Roastworks)
+  2 x Bombe (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+Bestilling 45 – Kari Lie
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 46 – Nora Hansen
+  1 x Bombe (Supreme Roastworks)
+  1 x La Esperanza (Supreme Roastworks)
+  3 x Daterra Sweet Collection (Kaffa)
+  1 x Bombe (Supreme Roastworks)
+Bestilling 47 – Henrik Larsen
+  1 x Karimikui (Supreme Roastworks)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 48 – Ola Bakken
+  3 x Huila Decaf (Fuglen)
+  3 x Gatomboya (Tim Wendelboe)
+  3 x Bombe (Supreme Roastworks)
+Bestilling 49 – Ingrid Larsen
+  2 x Bombe (Supreme Roastworks)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  1 x Bombe (Supreme Roastworks)
+Bestilling 50 – Ingrid Larsen
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+  2 x Kiambu (Jacu Coffee Roastery)
+  1 x Daterra Sweet Collection (Kaffa)
+  3 x Santa Barbara (Fuglen)
+Bestilling 51 – Sofie Olsen
+  3 x Guji Hambela (Fuglen)
+  3 x Kiambu (Jacu Coffee Roastery)
+Bestilling 52 – Lars Johansen
+  2 x Bombe (Supreme Roastworks)
+  1 x Karimikui (Supreme Roastworks)
+  3 x Finca Tamana (Kaffa)
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 53 – Magnus Hansen
+  2 x Karimikui (Supreme Roastworks)
+  2 x Kiambu (Jacu Coffee Roastery)
+  1 x Nyeri Hill (Tim Wendelboe)
+Bestilling 54 – Sindre Dahl
+  3 x Yirgacheffe Konga (Kaffa)
+  3 x La Esperanza (Supreme Roastworks)
+Bestilling 55 – Lars Haugen
+  3 x Nyeri Hill (Tim Wendelboe)
+  2 x Huila Decaf (Fuglen)
+  3 x Yirgacheffe Konga (Kaffa)
+  3 x Santa Barbara (Fuglen)
+Bestilling 56 – Henrik Bakken
+  3 x El Puente (Tim Wendelboe)
+  1 x Finca Tamana (Kaffa)
+  2 x La Esperanza (Supreme Roastworks)
+Bestilling 57 – Maja Hansen
+  3 x Yirgacheffe Konga (Kaffa)
+Bestilling 58 – Lars Hansen
+  2 x La Esperanza (Supreme Roastworks)
+  2 x Yirgacheffe Konga (Kaffa)
+  1 x Guji Hambela (Fuglen)
+  3 x Yirgacheffe Konga (Kaffa)
+Bestilling 59 – Nora Haugen
+  2 x Karimikui (Supreme Roastworks)
+Bestilling 60 – Thea Bakken
+  1 x Daterra Sweet Collection (Kaffa)
+  1 x Finca Tamana (Kaffa)
+Bestilling 61 – Thea Larsen
+  2 x Santa Barbara (Fuglen)
+  2 x Kiambu (Jacu Coffee Roastery)
+  2 x Bombe (Supreme Roastworks)
+Bestilling 62 – Jonas Larsen
+  2 x Bombe (Supreme Roastworks)
+  3 x Kiambu (Jacu Coffee Roastery)
+  2 x Finca Tamana (Kaffa)
+Bestilling 63 – Lars Nordmann
+  1 x La Esperanza (Supreme Roastworks)
+  2 x Santa Barbara (Fuglen)
+  3 x El Puente (Tim Wendelboe)
+  2 x Huila Decaf (Fuglen)
+Bestilling 64 – Thea Larsen
+  3 x Bombe (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 65 – Maja Dahl
+  1 x Yirgacheffe Konga (Kaffa)
+  3 x El Puente (Tim Wendelboe)
+  3 x Gatomboya (Tim Wendelboe)
+Bestilling 66 – Henrik Nordmann
+  2 x Kiambu (Jacu Coffee Roastery)
+  2 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 67 – Kari Haugen
+  2 x El Puente (Tim Wendelboe)
+  1 x Santa Barbara (Fuglen)
+  1 x Finca Tamana (Kaffa)
+Bestilling 68 – Lars Larsen
+  3 x Gatomboya (Tim Wendelboe)
+  3 x Nyeri Hill (Tim Wendelboe)
+  2 x Finca Tamana (Kaffa)
+  2 x Guji Hambela (Fuglen)
+Bestilling 69 – Ola Dahl
+  2 x La Esperanza (Supreme Roastworks)
+  3 x Karimikui (Supreme Roastworks)
+Bestilling 70 – Kari Johansen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+  3 x La Esperanza (Supreme Roastworks)
+  3 x Karimikui (Supreme Roastworks)
+  1 x El Puente (Tim Wendelboe)
+Bestilling 71 – Thea Larsen
+  1 x El Puente (Tim Wendelboe)
+  1 x Guji Hambela (Fuglen)
+  1 x Yirgacheffe Konga (Kaffa)
+  2 x La Esperanza (Supreme Roastworks)
+Bestilling 72 – Ida Haugen
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Gatomboya (Tim Wendelboe)
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 73 – Sindre Larsen
+  2 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Huila Decaf (Fuglen)
+Bestilling 74 – Sofie Dahl
+  1 x Kiambu (Jacu Coffee Roastery)
+  3 x La Esperanza (Supreme Roastworks)
+Bestilling 75 – Kari Haugen
+  1 x Guji Hambela (Fuglen)
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+Bestilling 76 – Emil Hansen
+  1 x Guji Hambela (Fuglen)
+  2 x Guji Hambela (Fuglen)
+  1 x Santa Barbara (Fuglen)
+Bestilling 77 – Astrid Hansen
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 78 – Maja Johansen
+  2 x Gatomboya (Tim Wendelboe)
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  1 x Cerrado Mineiro (Jacu Coffee Roastery)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+Bestilling 79 – Ingrid Larsen
+  3 x Kiambu (Jacu Coffee Roastery)
+Bestilling 80 – Thea Nordmann
+  2 x Karimikui (Supreme Roastworks)
+  3 x La Esperanza (Supreme Roastworks)
+Bestilling 81 – Thea Nordmann
+  3 x El Puente (Tim Wendelboe)
+  2 x La Esperanza (Supreme Roastworks)
+  3 x Karimikui (Supreme Roastworks)
+Bestilling 82 – Thea Berg
+  3 x Kiambu (Jacu Coffee Roastery)
+  2 x Guji Hambela (Fuglen)
+  1 x Gatomboya (Tim Wendelboe)
+Bestilling 83 – Magnus Olsen
+  1 x El Puente (Tim Wendelboe)
+Bestilling 84 – Ingrid Haugen
+  1 x Finca Tamana (Kaffa)
+  2 x Daterra Sweet Collection (Kaffa)
+Bestilling 85 – Thea Bakken
+  1 x Kiambu (Jacu Coffee Roastery)
+  1 x Daterra Sweet Collection (Kaffa)
+  1 x Karimikui (Supreme Roastworks)
+Bestilling 86 – Lars Johansen
+  2 x Daterra Sweet Collection (Kaffa)
+  3 x Gatomboya (Tim Wendelboe)
+  3 x Huila Decaf (Fuglen)
+  3 x Karimikui (Supreme Roastworks)
+Bestilling 87 – Magnus Berg
+  3 x La Esperanza (Supreme Roastworks)
+  3 x Gatomboya (Tim Wendelboe)
+  2 x Karimikui (Supreme Roastworks)
+  3 x Guji Hambela (Fuglen)
+Bestilling 88 – Jonas Bakken
+  2 x Santa Barbara (Fuglen)
+  2 x Finca Tamana (Kaffa)
+  1 x Karimikui (Supreme Roastworks)
+  3 x El Puente (Tim Wendelboe)
+Bestilling 89 – Henrik Larsen
+  1 x Nyeri Hill (Tim Wendelboe)
+  3 x Yirgacheffe Konga (Kaffa)
+  3 x Huila Decaf (Fuglen)
+Bestilling 90 – Ingrid Nordmann
+  3 x Kiambu (Jacu Coffee Roastery)
+Bestilling 91 – Astrid Bakken
+  3 x Bombe (Supreme Roastworks)
+  1 x Huila Decaf (Fuglen)
+Bestilling 92 – Lars Lie
+  2 x Huila Decaf (Fuglen)
+Bestilling 93 – Ola Olsen
+  3 x Santa Barbara (Fuglen)
+  1 x Sidamo Bensa (Jacu Coffee Roastery)
+  2 x Karimikui (Supreme Roastworks)
+Bestilling 94 – Nora Dahl
+  2 x Guji Hambela (Fuglen)
+Bestilling 95 – Thea Bakken
+  3 x Nyeri Hill (Tim Wendelboe)
+  1 x Bombe (Supreme Roastworks)
+  3 x Guji Hambela (Fuglen)
+  1 x Huila Decaf (Fuglen)
+Bestilling 96 – Ingrid Olsen
+  1 x Daterra Sweet Collection (Kaffa)
+  2 x Huila Decaf (Fuglen)
+  1 x Kiambu (Jacu Coffee Roastery)
+  2 x Gatomboya (Tim Wendelboe)
+Bestilling 97 – Astrid Nordmann
+  2 x Daterra Sweet Collection (Kaffa)
+  3 x Daterra Sweet Collection (Kaffa)
+  1 x Yirgacheffe Konga (Kaffa)
+  2 x Gatomboya (Tim Wendelboe)
+Bestilling 98 – Magnus Haugen
+  1 x Nyeri Hill (Tim Wendelboe)
+  1 x Yirgacheffe Konga (Kaffa)
+  3 x Cerrado Mineiro (Jacu Coffee Roastery)
+  2 x Nyeri Hill (Tim Wendelboe)
+Bestilling 99 – Henrik Johansen
+  1 x Kiambu (Jacu Coffee Roastery)
+Bestilling 100 – Nora Larsen
+  3 x Guji Hambela (Fuglen)
+  3 x Sidamo Bensa (Jacu Coffee Roastery)
+
+SQL-setninger: select=1, insert=0, update=0, delete=0
